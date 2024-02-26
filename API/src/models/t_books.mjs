@@ -1,4 +1,4 @@
-const productModel = (sequelize, DataTypes) => {
+const bookModel = (sequelize, DataTypes) => {
   return sequelize.define("t_books", {
     id: {
       type: DataTypes.INTEGER,
@@ -128,3 +128,5 @@ const productModel = (sequelize, DataTypes) => {
     },
   });
 };
+
+export { bookModel };
