@@ -1,8 +1,8 @@
 const success = (message, data) => {
-    return {
-      message: message,
-      data: data,
-    };
+  return {
+    message: message,
+    data: data,
   };
-  
-  export { success }
+};
+
+export { success };
