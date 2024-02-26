@@ -24,7 +24,7 @@ app.get("/api/", (req, res) => {
 app.use("/api/books", allBooksRooter);
 
 //get book by id
-app.use("/api/books/?id", idBooksRooter);
+app.use("/api/books", idBooksRooter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
