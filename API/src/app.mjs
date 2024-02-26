@@ -3,6 +3,7 @@ import { books } from "./db/mock-books.mjs";
 import { success } from "./routes/helper.mjs";
 import { allBooksRooter } from "./routes/findAllBooks.mjs";
 import { idBooksRooter } from "./routes/findBooksById.mjs";
+import { categoryBooksRooter } from "./routes/findBooksByCategory.mjs";
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use("/api/books", allBooksRooter);
 
 //get book by id
 app.use("/api/books", idBooksRooter);
+
+//get book by category
+app.use("/api/books/category", categoryBooksRooter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
