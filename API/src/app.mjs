@@ -4,6 +4,7 @@ import { success } from "./routes/helper.mjs";
 import { allBooksRooter } from "./routes/findAllBooks.mjs";
 import { idBooksRooter } from "./routes/findBooksById.mjs";
 import { categoryBooksRooter } from "./routes/findBooksByCategory.mjs";
+import { titleBooksRooter } from "./routes/findBooksByTitle.mjs";
 
 const app = express();
 
@@ -29,6 +30,9 @@ app.use("/api/books", idBooksRooter);
 
 //get book by category
 app.use("/api/books/category", categoryBooksRooter);
+
+//get book by title
+app.use("/api/books/title", titleBooksRooter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
