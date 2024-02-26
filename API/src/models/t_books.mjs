@@ -118,5 +118,13 @@ const productModel = (sequelize, DataTypes) => {
         },
       },
     },
+    fk_user: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    fk_category: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   });
 };
