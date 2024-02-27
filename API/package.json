@@ -1,5 +1,5 @@
 {
-  "name": "api passionLecture",
+  "name": "api-book-passion",
   "version": "1.0.0",
   "description": "An API that allows user to access a list of books",
   "main": "src/app.mjs",
@@ -19,6 +19,7 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "vitest": "^1.3.1"
   }
 }
