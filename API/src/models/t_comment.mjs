@@ -1,5 +1,5 @@
 const commentModel = (sequelize, DataTypes) => {
-  return sequelize.define("t_books", {
+  return sequelize.define("t_comments", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -20,15 +20,7 @@ const commentModel = (sequelize, DataTypes) => {
     },
     rate: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "La catégorie ne peut pas être vide.",
-        },
-        notNull: {
-          msg: "La catégorie est une propriété obligatoire.",
-        },
-      },
+      allowNull: true,
     },
     fk_user: {
       type: DataTypes.INTEGER,
