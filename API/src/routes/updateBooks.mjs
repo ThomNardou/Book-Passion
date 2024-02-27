@@ -13,7 +13,7 @@ putBooksRooter.put("/:id", (req, res) => {
         ...req.body,
     }
 
-    books = books.map((product) =>
+    books = books.map((book) =>
         book.id == bookId ? updatedBook : book
     );
 
