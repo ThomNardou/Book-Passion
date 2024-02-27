@@ -18,18 +18,6 @@ const bookModel = (sequelize, DataTypes) => {
         },
       },
     },
-    category: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "La catégorie ne peut pas être vide.",
-        },
-        notNull: {
-          msg: "La catégorie est une propriété obligatoire.",
-        },
-      },
-    },
     numberPages: {
       type: DataTypes.INTEGER,
       allowNull: false,
