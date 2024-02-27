@@ -1,6 +1,8 @@
 import express from "express";
 import { books } from "./db/mock-books.mjs";
 import { success } from "./routes/helper.mjs";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger.mjs";
 import { allBooksRooter } from "./routes/findAllBooks.mjs";
 import { idBooksRooter } from "./routes/findBooksById.mjs";
 import { categoryBooksRooter } from "./routes/findBooksByCategory.mjs";
@@ -12,6 +14,13 @@ const app = express();
 app.use(express.json());
 
 const port = 3000;
+
+//swagger documentation
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+  );
 
 //TODO : check if useful
 app.get("/", (req, res) => {
