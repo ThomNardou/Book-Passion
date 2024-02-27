@@ -20,7 +20,7 @@ app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
-  );
+);
 
 //TODO : check if useful
 app.get("/", (req, res) => {
@@ -46,6 +46,13 @@ app.use("/api/books/title", titleBooksRooter);
 
 //update book
 app.use("api/books", putBooksRooter);
+
+//Error 404
+app.use(({ res }) => {
+  const message =
+    "Unable to find the requested resource! Try another URL.";
+  res.status(404).json(message);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
