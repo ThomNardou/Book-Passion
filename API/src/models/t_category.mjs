@@ -1,5 +1,5 @@
 const categoryModel = (sequelize, DataTypes) => {
-  return sequelize.define("t_category", {
+  return sequelize.define("t_categories", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
