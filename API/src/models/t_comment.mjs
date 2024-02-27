@@ -11,10 +11,10 @@ const commentModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le commentaire ne peut pas être vide.",
+          msg: "The comment cannot be empty.",
         },
         notNull: {
-          msg: "Le commentaire est une propriété obligatoire.",
+          msg: "The comment is a mandatory property.",
         },
       },
     },

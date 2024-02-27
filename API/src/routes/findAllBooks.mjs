@@ -5,7 +5,7 @@ import { success } from "./helper.mjs";
 const allBooksRooter = express();
 
 allBooksRooter.get("/", (req, res) => {
-    const message = "La liste des livres a bien été récupérée.";
+    const message = "The book list has been retrieved.";
     res.json(success(message, books));
   });
 

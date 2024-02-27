@@ -17,7 +17,7 @@ putBooksRooter.put("/:id", (req, res) => {
         book.id == bookId ? updatedBook : book
     );
 
-    const message = `Le livre dont l'id vaut ${bookId} a bien été récupéré.`;
+    const message = `The book with id ${bookId} has been retrieved.`;
     res.json(success(message, book));
 });
 

@@ -7,7 +7,7 @@ const titleBooksRooter = express();
 titleBooksRooter.get("/:title", (req, res) => {
   const bookTitle = req.params.title;
   const book = books.find((book) => book.title == bookTitle)
-  const message = `Le livre dont le titre est ${bookTitle} a bien été récupéré.`;
+  const message = `The book with the title ${bookTitle} has been successfully retrieved.`;
   res.json(success(message, book));
 });
 

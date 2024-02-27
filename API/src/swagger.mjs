@@ -39,7 +39,7 @@ const options = {
                             description: "The number of pages in the book.",
                         },
                         excerpt: {
-                            type: "string", //TODO : link or string or else?
+                            type: "string",
                             description: "An excerpt from the book.",
                         },
                         summary: {

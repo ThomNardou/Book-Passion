@@ -10,7 +10,7 @@ const UserModel = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: { msg: "cette utilisateur est déjà pris" },
+        unique: { msg: "This user is already taken." },
       },
       password: {
         type: DataTypes.STRING,

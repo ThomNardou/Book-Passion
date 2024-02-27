@@ -9,7 +9,7 @@ const sequelize = new Sequelize("db_books", "root", "root", {
 
 let initDB = () => {
   return sequelize.sync({ force: true }).then(() => {
-    console.log("La base de donnée à bien été syncronisé");
+    console.log("The database has been synchronized.");
   });
 };
 

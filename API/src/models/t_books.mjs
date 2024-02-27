@@ -11,10 +11,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le titre ne peut pas être vide.",
+          msg: "The title cannot be empty.",
         },
         notNull: {
-          msg: "Le titre est une propriété obligatoire.",
+          msg: "Title is a mandatory property.",
         },
       },
     },
@@ -23,10 +23,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le nombre de page ne peut pas être vide.",
+          msg: "The number of pages cannot be empty.",
         },
         notNull: {
-          msg: "Le nombre de page est une propriété obligatoire.",
+          msg: "The number of pages is a mandatory property.",
         },
       },
     },
@@ -35,10 +35,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "L'extrait ne peut pas être vide.",
+          msg: "The excerpt cannot be empty.",
         },
         notNull: {
-          msg: "L'extrait est une propriété obligatoire.",
+          msg: "The extract is a mandatory property.",
         },
       },
     },
@@ -47,10 +47,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le résumé ne peut pas être vide.",
+          msg: "The summary cannot be empty.",
         },
         notNull: {
-          msg: "Le résumé est une propriété obligatoire.",
+          msg: "The summary is a mandatory property.",
         },
       },
     },
@@ -59,10 +59,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le nom de l'auteur ne peut pas être vide.",
+          msg: "The author's name cannot be empty.",
         },
         notNull: {
-          msg: "Le nom de l'auteur est une propriété obligatoire.",
+          msg: "The author's name is a mandatory property.",
         },
       },
     },
@@ -71,10 +71,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le nom de l'éditeur ne peut pas être vide.",
+          msg: "The editor's name cannot be empty.",
         },
         notNull: {
-          msg: "Le nom de l'éditeur est une propriété obligatoire.",
+          msg: "The editor's name is a mandatory property.",
         },
       },
     },
@@ -83,10 +83,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "L'année d'édition ne peut pas être vide.",
+          msg: "The publishing year cannot be empty.",
         },
         notNull: {
-          msg: "L'année d'édition est une propriété obligatoire.",
+          msg: "The year of publication is a mandatory property.",
         },
       },
     },
@@ -99,10 +99,10 @@ const bookModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le lien de l'image d'illustration ne peut pas être vide.",
+          msg: "The illustration image link cannot be empty.",
         },
         notNull: {
-          msg: "Le lien de l'image d'illustration est une propriété obligatoire.",
+          msg: "The illustration image link is a mandatory property.",
         },
       },
     },

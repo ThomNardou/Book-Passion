@@ -7,7 +7,7 @@ const idBooksRooter = express();
 idBooksRooter.get("/:id", (req, res) => {
   const bookId = req.params.id;
   const book = books.find((book) => book.id == bookId)
-  const message = `Le livre dont l'id vaut ${bookId} a bien été récupéré.`;
+  const message = `The book with id ${bookId} has been retrieved.`;
   res.json(success(message, book));
 });
 

@@ -11,10 +11,10 @@ const categoryModel = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Le nom de la catégorie ne peut pas être vide.",
+          msg: "The category name cannot be empty.",
         },
         notNull: {
-          msg: "Le nom de la catégorie est une propriété obligatoire.",
+          msg: "The category name is a mandatory property.",
         },
       },
     },
