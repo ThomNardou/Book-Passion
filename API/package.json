@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "api passionLecture",
   "version": "1.0.0",
   "description": "An API that allows user to access a list of books",
   "main": "src/app.mjs",
