@@ -24,7 +24,7 @@ const options = {
             schemas: {
                 Book: {
                     type: "object",
-                    required: ["id", "title", "category", "numberPages", "excerpt", "summary", "writer", "editor", "releaseYear", "avgRating", "coverImage", "fk_user", "fk_category"],
+                    required: ["id", "title", "numberPages", "excerpt", "summary", "writer", "editor", "releaseYear", "avgRating", "coverImage", "fk_user", "fk_category"],
                     properties: {
                         id: {
                             type: "integer",
@@ -77,7 +77,7 @@ const options = {
                         }
                     },
                 },
-                Category: {
+                Categories: {
                     type: "object",
                     required: ["id", "name"],
                     properties: {
