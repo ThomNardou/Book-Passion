@@ -42,7 +42,7 @@ const bookModel = (sequelize, DataTypes) => {
         },
       },
     },
-    extract: {
+    excerpt: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
