@@ -93,7 +93,7 @@ const options = {
                 },
                 Comment: {
                     type: "object",
-                    required: ["id", "comment", "rate", "fk_user", "fk_book"],
+                    required: ["id", "comment", "fk_user", "fk_book"],
                     properties: {
                         id: {
                             type: "integer",
