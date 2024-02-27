@@ -78,62 +78,74 @@ const options = {
                     },
                 },
                 Category: {
-                    id: {
-                        type: "integer",
-                        description: "The category's unique identifier.",
-                    },
-                    name: {
-                        type: "string",
-                        description: "The name of the category.",
+                    type: "object",
+                    required: ["id", "name"],
+                    properties: {
+                        id: {
+                            type: "integer",
+                            description: "The category's unique identifier.",
+                        },
+                        name: {
+                            type: "string",
+                            description: "The name of the category.",
+                        },
                     },
                 },
                 Comment: {
-                    id: {
-                        type: "integer",
-                        description: "The comment's unique identifier.",
-                    },
-                    comment: {
-                        type: "string",
-                        description: "The comment's posted."
-                    },
-                    rate: {
-                        type: "integer",
-                        description: "The note chosen by the user."
-                    },
-                    fk_user: {
-                        type: "integer",
-                        description: "The foreign key of the user that have posted the comment."
-                    },
-                    fk_book: {
-                        type: "integer",
-                        description: "The foreign key of the book for which the comment has been posted."
+                    type: "object",
+                    required: ["id", "comment", "rate", "fk_user", "fk_book"],
+                    properties: {
+                        id: {
+                            type: "integer",
+                            description: "The comment's unique identifier.",
+                        },
+                        comment: {
+                            type: "string",
+                            description: "The comment's content."
+                        },
+                        rate: {
+                            type: "integer",
+                            description: "The note chosen by the user."
+                        },
+                        fk_user: {
+                            type: "integer",
+                            description: "The foreign key of the user that have posted the comment."
+                        },
+                        fk_book: {
+                            type: "integer",
+                            description: "The foreign key of the book for which the comment has been posted."
+                        },
                     },
                 },
                 User: {
-                    id: {
-                        type: "integer",
-                        description: "The user's unique identifier.",
+                    type: "object",
+                    required: ["id", "username", "password", "nbrBookRecommended", "nbrRatingDone", "nbrCommentsDone"],
+                    properties: {
+                        id: {
+                            type: "integer",
+                            description: "The user's unique identifier.",
+                        },
+                        username: {
+                            type: "string",
+                            description: "The username of the user.",
+                        },
+                        password: {
+                            type: "string",
+                            description: "The password of the user.",
+                        },
+                        nbrBookRecommended: {
+                            type: "integer",
+                            description: "The number of books recommended by the user.",
+                        },
+                        nbrRatingDone: {
+                            type: "integer",
+                            description: "The number of votes made by the user.",
+                        },
+                        nbrCommentsDone: {
+                            type: "integer",
+                            description: "The number of comments made by the user.",
+                        }
                     },
-                    username: {
-                        type: "string",
-                        description: "The username of the user.",
-                    },
-                    password: {
-                        type: "string",
-                        description: "The password of the user.",
-                    },
-                    nbrBookRecommended: {
-                        type: "integer",
-                        description: "The number of books recommended by the user.",
-                    },
-                    nbrRatingDone: {
-                        type: "integer",
-                        description: "The number of votes made by the user.",
-                    },
-                    nbrCommentsDone: {
-                        type: "integer",
-                        description: "The number of comments made by the user.",
-                    }
                 },
                 // Ajoutez d'autres schémas ici si nécessaire
             },
