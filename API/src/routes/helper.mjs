@@ -1,6 +1,5 @@
 import { books } from "../db/mock-books.mjs";
 
-//Write the success message
 const success = (message, data) => {
   return {
     message: message,
