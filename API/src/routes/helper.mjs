@@ -1,5 +1,11 @@
 import { books } from "../db/mock-books.mjs";
 
+/**
+ * Write the success or not to the user
+ * @param {*} message 
+ * @param {*} data 
+ * @returns 
+ */
 const success = (message, data) => {
   return {
     message: message,
