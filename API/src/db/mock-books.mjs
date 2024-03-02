@@ -2,7 +2,7 @@ let books = [
   {
     id: 11,
     title: "monster",
-    category: "mystery",
+    category: "manga",
     nbrPages: 1200,
     link: "https://example.com/",
     summary: "A manga about philosophy and nihilism",
@@ -16,7 +16,7 @@ let books = [
   {
     id: 1,
     title: "L'affaire Charles Dexter Ward",
-    category: "sci-fi",
+    category: "short_novel",
     nbrPages: 300,
     link: "https://example.com/",
     summary: "A man become crazy and his family want to help him",
@@ -30,7 +30,7 @@ let books = [
   {
     id: 2,
     title: "Le signe des quatres",
-    category: "mystery",
+    category: "short_novel",
     nbrPages: 120,
     link: "https://example.com/",
     summary: "Sherlock Holmes is investing",
@@ -44,7 +44,7 @@ let books = [
   {
     id: 10,
     title: "L'art de la guerre",
-    category: "military strategy",
+    category: "book",
     nbrPages: 170,
     link: "https://example.com/",
     summary: "How to defeat his enemy",
