@@ -5,7 +5,7 @@ let books = [
     category: "mystery",
     nbrPages: 1200,
     link: "https://example.com/",
-    summary: "a manga about philosophy and nihilism",
+    summary: "A manga about philosophy and nihilism",
     writer: "idk",
     publisherName: "idk",
     publishingYear: 1980,

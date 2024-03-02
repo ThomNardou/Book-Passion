@@ -8,6 +8,7 @@ import { idBooksRooter } from "./routes/findBooksById.mjs";
 import { categoryBooksRooter } from "./routes/findBooksByCategory.mjs";
 import { titleBooksRooter } from "./routes/findBooksByTitle.mjs";
 import { putBooksRooter } from "./routes/updateBooks.mjs";
+import { createBooksRouter } from "./routes/createBooks.mjs";
 import { initDB, sequelize } from "./db/sequelize.mjs";
 
 const app = express();
@@ -48,6 +49,10 @@ app.use("/api/books/title", titleBooksRooter);
 //update book
 app.use("api/books", putBooksRooter);
 
+//create book
+app.use("/api/books/add", createBooksRouter);
+
+//database
 sequelize
   // Va regarder si la connection a pu se faire
   .authenticate()
@@ -58,7 +63,7 @@ sequelize
   // Elle a pas pu se connecter
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 
-initDB();
+//initDB(); //uncomment to connect to the database with docker - comment to not connect to the database
 
 //Error 404
 app.use(({ res }) => {
@@ -67,6 +72,7 @@ app.use(({ res }) => {
   res.status(404).json(message);
 });
 
+//Listen
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
