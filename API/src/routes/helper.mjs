@@ -44,10 +44,10 @@ const removeBook = (bookId) => {
 * @param {*} bookId
 * @param {*} updatedbook
 */
-const updatebook = (bookId, updatedbook) => {
+const updateBook = (bookId, updatedbook) => {
   books = books.map((book) =>
     book.id == bookId ? updatedbook : book
   );
 };
 
-export { success, getUniqueId, getBook, removeBook, updatebook };
+export { success, getUniqueId, getBook, removeBook, updateBook };
