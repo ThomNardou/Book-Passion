@@ -9,6 +9,7 @@ import { categoryBooksRooter } from "./routes/findBooksByCategory.mjs";
 import { titleBooksRooter } from "./routes/findBooksByTitle.mjs";
 import { putBooksRooter } from "./routes/updateBooks.mjs";
 import { createBooksRouter } from "./routes/createBooks.mjs";
+import { deleteBooksRouter } from "./routes/deleteBooks.mjs";
 import { initDB, sequelize } from "./db/sequelize.mjs";
 
 const app = express();
@@ -51,6 +52,9 @@ app.use("api/books", putBooksRooter);
 
 //create book
 app.use("/api/books/add", createBooksRouter);
+
+//delete book
+app.use("/api/books/remove", deleteBooksRouter);
 
 //database
 sequelize
