@@ -1,5 +1,5 @@
 import express from "express";
-import { success, getBook, removeBook } from "../helper.mjs";
+import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
 
 const deleteCategoryRouter = express();

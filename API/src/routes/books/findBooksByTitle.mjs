@@ -1,5 +1,4 @@
 import express from "express";
-import { books } from "../../db/mock-books.mjs";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 

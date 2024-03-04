@@ -1,6 +1,4 @@
 import express from "express";
-import { books } from "./db/mock-books.mjs";
-import { success } from "./routes/helper.mjs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.mjs";
 import { allBooksRooter } from "./routes/books/findAllBooks.mjs";
@@ -14,7 +12,7 @@ import { allCategoryRooter } from "./routes/category/findAllCategory.mjs";
 import { createCategoryRouter } from "./routes/category/createCategory.mjs";
 import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
-import { initDB, sequelize } from "./db/sequelize.mjs";
+import { sequelize } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 
 const app = express();
