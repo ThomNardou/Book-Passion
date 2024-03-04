@@ -49,4 +49,4 @@ let initDB = () => {
   });
 };
 
-export { sequelize, initDB };
+export { sequelize, initDB, Book, Category, User, Comments };
