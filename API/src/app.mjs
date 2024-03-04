@@ -11,6 +11,9 @@ import { putBooksRooter } from "./routes/books/updateBooks.mjs";
 import { createBooksRouter } from "./routes/books/createBooks.mjs";
 import { deleteBooksRouter } from "./routes/books/deleteBooks.mjs";
 import { allCategoryRooter } from "./routes/category/findAllCategory.mjs";
+import { createCategoryRouter } from "./routes/category/createCategory.mjs";
+import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
+import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { initDB, sequelize } from "./db/sequelize.mjs";
 
 const app = express();
@@ -61,6 +64,15 @@ app.use("/api/books", deleteBooksRouter);
 ///////////////////////////////////////////////////////////// CATEGORY ROOTERS /////////////////////////////////////////////////////////////
 // Get all category
 app.use("/api/category", allCategoryRooter);
+
+// Create category
+app.use("/api/category", createCategoryRouter);
+
+// Delete category
+app.use("/api/category", deleteCategoryRouter);
+
+// Delete category
+app.use("/api/category", putCategoryRooter);
 
 //database
 sequelize
