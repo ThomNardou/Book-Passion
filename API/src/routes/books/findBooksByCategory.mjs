@@ -31,9 +31,18 @@ categoryBooksRooter.get("/:category", (req, res) => {
       as: 'Category',
     },
   }).then((categorybook) => {
+    if (categorybook === null) {
+      const message = "The requested books does not exist. Please try again with another login.";
+      return res.status(404).json({ message });
+    }
+
     const message = `The books with category ${bookCategory} have been retrieved.`;
     res.json(success(message, categorybook));
-  });
+  })
+  .catch((error) => {
+    const message = "The books could not be recovered. Please try again shortly.";
+    res.status(500).json({ message, data: error });
+  })
 });
 
 export { categoryBooksRooter };
