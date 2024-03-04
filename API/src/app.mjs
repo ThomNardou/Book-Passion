@@ -67,7 +67,7 @@ sequelize
   // Elle a pas pu se connecter
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 
-initDB(); //you need to be connected to the database else "error"
+// initDB(); //you need to be connected to the database else "error"
 
 //Error 404
 app.use(({ res }) => {
