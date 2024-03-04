@@ -25,7 +25,7 @@ deleteBooksRouter.delete("/:id", (req, res) => {
             return res.status(404).json({ message });
         }
 
-         return Book.destroy({
+        return Book.destroy({
         where: { id: deletedBook.id },
         }).then((_) => {
         const message = `The book ${deletedBook.name} has been deleted!`;
