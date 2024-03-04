@@ -20,14 +20,20 @@ const deleteBooksRouter = express();
  */
 deleteBooksRouter.delete("/:id", (req, res) => {
     Book.findByPk(req.params.id).then((deletedBook) => {
-        Book.destroy({
+        if (deletedBook === null) {
+            const message = "The requested book does not exist. Please try again with another login.";
+            return res.status(404).json({ message });
+        }
+
+         return Book.destroy({
         where: { id: deletedBook.id },
         }).then((_) => {
-        // Définir un message pour le consommateur de l'API REST
-        const message = `Le produit ${deletedBook.name} a bien été supprimé !`;
-        // Retourner la réponse HTTP en json avec le msg et le produit créé
+        const message = `The book ${deletedBook.name} has been deleted!`;
         res.json(success(message, deletedBook));
         })
+    }).catch((error) => {
+        const message = "Le livre n'a pas pu être supprimé. Merci de réessayer dans quelques instants.";
+        res.status(500).json({ message, data: error });
     })
 });
 
