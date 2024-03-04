@@ -12,7 +12,7 @@ import { allCategoryRooter } from "./routes/category/findAllCategory.mjs";
 import { createCategoryRouter } from "./routes/category/createCategory.mjs";
 import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
-import { sequelize } from "./db/sequelize.mjs";
+import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 
 const app = express();
@@ -78,16 +78,16 @@ app.use("/api/category", putCategoryRooter);
 
 //database
 sequelize
-  // Va regarder si la connection a pu se faire
+  // Check if the connection has been made
   .authenticate()
-  // Si elle a pu se connecter
+  // If it could connect
   .then(() =>
-    console.log("La connexion à la base de données a bien été établie")
+    console.log("The connection to the database has been established.")
   )
-  // Elle a pas pu se connecter
-  .catch((error) => console.error("Impossible de se connecter à la DB"));
+  // If it could'nt connect
+  .catch((error) => console.error("Unable to connect to DB"));
 
-// initDB(); //you need to be connected to the database else "error"
+  initDB(); //you need to be connected to the database else "error", will delete the data
 
 //Error 404
 app.use(({ res }) => {
