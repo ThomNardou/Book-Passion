@@ -30,8 +30,7 @@ createBooksRouter.post("/", (req, res) => {
         return res.status(400).json({ message: error.message, data: error });
       }
       
-      const message =
-        "The product could not be added. Please try again shortly.";
+      const message = "The book could not be added. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });
 });

@@ -21,15 +21,15 @@ const idBooksRooter = express();
 idBooksRooter.get("/:id", (req, res) => {
   Book.findByPk(req.params.id).then((book) => {
     if (book === null) {
-      const message = "The requested product does not exist. Please try again with another login.";
+      const message = "The requested book does not exist. Please try again with another login.";
       return res.status(404).json({ message });
     }
 
-    const message = `The book with id ${req.params.id} has been retrieved.`;
+    const message = `The book with id ${book.id} has been retrieved.`;
     res.json(success(message, book));
   })
   .catch((error) => {
-    const message = "The product could not be recovered. Please try again shortly.";
+    const message = "The book could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });
   })
 });
