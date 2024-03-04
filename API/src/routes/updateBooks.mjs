@@ -6,16 +6,16 @@ const putBooksRooter = express();
 
 /**
  * @swagger
- * /api/books/category/title/:title:
+ * /api/books/category:
  *   put:
  *     tags: [Books]
  *     security:
  *       - bearerAuth: []
- *     summary: Edit a book using it's title.
- *     description: Edit a book using it's title.
+ *     summary: Update a book using it's id.
+ *     description: Update a book using it's id.
  *     responses:
  *       200:
- *         description: Edit a book using it's title.
+ *         description: Update a book using it's id.
  */
 putBooksRooter.put("/:id", (req, res) => {
     const bookId = req.params.id;
