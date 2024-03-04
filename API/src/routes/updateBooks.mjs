@@ -4,6 +4,19 @@ import { success } from "./helper.mjs";
 
 const putBooksRooter = express();
 
+/**
+ * @swagger
+ * /api/books/category/title/:title:
+ *   put:
+ *     tags: [Books]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Edit a book using it's title.
+ *     description: Edit a book using it's title.
+ *     responses:
+ *       200:
+ *         description: Edit a book using it's title.
+ */
 putBooksRooter.put("/:id", (req, res) => {
     const bookId = req.params.id;
     const book = books.find((book) => book.id == bookId)

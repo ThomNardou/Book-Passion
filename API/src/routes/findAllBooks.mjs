@@ -5,6 +5,19 @@ import { Book } from "../db/sequelize.mjs";
 
 const allBooksRooter = express();
 
+/**
+ * @swagger
+ * /api/books:
+ *   get:
+ *     tags: [Books]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Retrieve all books.
+ *     description: Retrieve all books.
+ *     responses:
+ *       200:
+ *         description: Retrieve all books.
+ */
 allBooksRooter.get("/", (req, res) => {
   Book.findAll()
     .then((books) => {

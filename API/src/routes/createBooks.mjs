@@ -1,7 +1,6 @@
 import express from "express";
 import { books } from "../db/mock-books.mjs";
 import { success, getUniqueId } from "./helper.mjs";
-import swaggerUi from "swagger-ui-express";
 import { Book } from "../db/sequelize.mjs";
 import { ValidationError } from "sequelize";
 
@@ -9,16 +8,16 @@ const createBooksRouter = express();
 
 /**
  * @swagger
- * /api/books/:
- *   get:
+ * /api/books/add:
+ *   post:
  *     tags: [Books]
  *     security:
  *       - bearerAuth: []
- *     summary: Retrieve all books.
- *     description: Retrieve all books.
+ *     summary: Create a book.
+ *     description: Create a book.
  *     responses:
  *       200:
- *         description: Retrieve all books.
+ *         description: Create a book.
  */
 createBooksRouter.post("/", (req, res) => {
   Book.create(req.body)
