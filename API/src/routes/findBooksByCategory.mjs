@@ -28,7 +28,7 @@ categoryBooksRooter.get("/:category", (req, res) => {
       model: Category,
       require: true,
       attributes: ["name"],
-      as: 'test',
+      as: 'Category',
     },
   }).then((categorybook) => {
     const message = `The books with category ${bookCategory} have been retrieved.`;

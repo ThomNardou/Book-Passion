@@ -41,6 +41,7 @@ Book.belongsTo(User, {
 });
 Book.belongsTo(Category, {
   foreignKey: "fk_category",
+  as: "Category"
 });
 
 let initDB = () => {
