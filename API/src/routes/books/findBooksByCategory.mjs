@@ -9,7 +9,7 @@ const categoryBooksRooter = express();
 
 /**
  * @swagger
- * /api/books/category/:category:
+ * /api/books/category/:id:
  *   get:
  *     tags: [Books]
  *     security:
@@ -20,15 +20,18 @@ const categoryBooksRooter = express();
  *       200:
  *         description: Retrieve all books with a certain category.
  */
-categoryBooksRooter.get("/:category", (req, res) => {
-  const bookCategory = req.params.category;
+categoryBooksRooter.get("/:id", (req, res) => {
+  const bookCategory = req.params.id;
 
   Book.findAll({
     include: {
       model: Category,
       require: true,
-      attributes: ["name"],
+      attributes: ["id", "name"],
       as: 'Category',
+      where: {
+        id: {[Op.eq]: bookCategory}
+      }
     },
   }).then((categorybook) => {
     if (categorybook === null) {

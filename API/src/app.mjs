@@ -74,6 +74,11 @@ app.use("/api/category", deleteCategoryRouter);
 // Delete category
 app.use("/api/category", putCategoryRooter);
 
+
+
+
+
+
 //database
 sequelize
   // Va regarder si la connection a pu se faire
