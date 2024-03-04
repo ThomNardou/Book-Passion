@@ -15,6 +15,7 @@ import { createCategoryRouter } from "./routes/category/createCategory.mjs";
 import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { initDB, sequelize } from "./db/sequelize.mjs";
+import { loginRouter } from "./routes/login.mjs";
 
 const app = express();
 
@@ -28,6 +29,9 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
+
+//login authentication
+app.use("/api/login", loginRouter);
 
 //TODO : check if useful
 app.get("/", (req, res) => {
