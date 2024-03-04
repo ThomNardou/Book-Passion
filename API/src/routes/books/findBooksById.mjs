@@ -1,7 +1,7 @@
 import express from "express";
-import { books } from "../db/mock-books.mjs";
-import { success, getBook } from "./helper.mjs";
-import { Book } from "../db/sequelize.mjs";
+import { books } from "../../db/mock-books.mjs";
+import { success, getBook } from "../helper.mjs";
+import { Book } from "../../db/sequelize.mjs";
 
 const idBooksRooter = express();
 
