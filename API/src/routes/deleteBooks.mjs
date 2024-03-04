@@ -1,6 +1,7 @@
 import express from "express";
 import { books } from "../db/mock-books.mjs";
 import { success, getBook, removeBook } from "./helper.mjs";
+import { Book } from "../db/sequelize.mjs";
 
 const deleteBooksRouter = express();
 
@@ -18,13 +19,16 @@ const deleteBooksRouter = express();
  *         description: Delete a book with it's id.
  */
 deleteBooksRouter.delete("/:id", (req, res) => {
-    const bookId = req.params.id;
-    const deletedBook = getBook(bookId);
-    removeBook(bookId);
-
-    const message = `The book ${deletedBook.title} has been deleted!`;
-
-    res.json(success(message, deletedBook));
+    Book.findByPk(req.params.id).then((deletedBook) => {
+        Book.destroy({
+        where: { id: deletedBook.id },
+        }).then((_) => {
+        // Définir un message pour le consommateur de l'API REST
+        const message = `Le produit ${deletedBook.name} a bien été supprimé !`;
+        // Retourner la réponse HTTP en json avec le msg et le produit créé
+        res.json(success(message, deletedBook));
+        })
+    })
 });
 
 export { deleteBooksRouter }
