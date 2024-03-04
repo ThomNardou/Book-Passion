@@ -23,7 +23,7 @@ putBooksRooter.put("/:id", (req, res) => {
     Book.update(req.body, { where: { id: bookId } }).then((_) => {
         Book.findByPk(bookId).then((updatedBook) => {
             if (updatedBook === null) {
-                const message = "The requested product does not exist. Please try again with another login.";
+                const message = "The requested book does not exist. Please try again with another login.";
                 return res.status(404).json({ message });
             }
 
@@ -31,12 +31,12 @@ putBooksRooter.put("/:id", (req, res) => {
             res.json(success(message, updatedBook));
         })
         .catch((error) => {
-            const message = "The product could not be updated. Please try again shortly.";
+            const message = "The book could not be updated. Please try again shortly.";
             res.status(500).json({ message, data: error });
         })
     })
     .catch((error) => {
-        const message = "The product could not be updated. Please try again shortly.";
+        const message = "The book could not be updated. Please try again shortly.";
         res.status(500).json({ message, data: error });
     })
 });

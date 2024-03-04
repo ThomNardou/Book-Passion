@@ -26,7 +26,7 @@ allBooksRooter.get("/", (req, res) => {
     })
     .catch((error) => {
       const message =
-        "The product list could not be retrieved. Please try again shortly.";
+        "The book list could not be retrieved. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });
 });
