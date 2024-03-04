@@ -7,7 +7,7 @@ const idBooksRooter = express();
 
 /**
  * @swagger
- * /api/books/category/:id:
+ * /api/books/:id:
  *   get:
  *     tags: [Books]
  *     security:

@@ -6,7 +6,7 @@ const putBooksRooter = express();
 
 /**
  * @swagger
- * /api/books/category:
+ * /api/books:
  *   put:
  *     tags: [Books]
  *     security:

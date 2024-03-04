@@ -6,7 +6,7 @@ const titleBooksRooter = express();
 
 /**
  * @swagger
- * /api/books/category/title/:title:
+ * /api/books/title/:title:
  *   get:
  *     tags: [Books]
  *     security:
