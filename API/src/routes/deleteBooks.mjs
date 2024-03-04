@@ -7,7 +7,7 @@ const deleteBooksRouter = express();
 
 /**
  * @swagger
- * /api/books/remove/:id:
+ * /api/books/:id:
  *   delete:
  *     tags: [Books]
  *     security:
@@ -28,7 +28,7 @@ deleteBooksRouter.delete("/:id", (req, res) => {
         return Book.destroy({
         where: { id: deletedBook.id },
         }).then((_) => {
-        const message = `The book ${deletedBook.name} has been deleted!`;
+        const message = `The book ${deletedBook.title} has been deleted!`;
         res.json(success(message, deletedBook));
         })
     }).catch((error) => {

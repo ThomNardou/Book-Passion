@@ -8,7 +8,7 @@ const createBooksRouter = express();
 
 /**
  * @swagger
- * /api/books/add:
+ * /api/books:
  *   post:
  *     tags: [Books]
  *     security:

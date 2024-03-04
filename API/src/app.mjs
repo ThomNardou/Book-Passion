@@ -51,10 +51,10 @@ app.use("/api/books/title", titleBooksRooter);
 app.use("api/books", putBooksRooter);
 
 //create book
-app.use("/api/books/add", createBooksRouter);
+app.use("/api/books", createBooksRouter);
 
 //delete book
-app.use("/api/books/remove", deleteBooksRouter);
+app.use("/api/books", deleteBooksRouter);
 
 //database
 sequelize
