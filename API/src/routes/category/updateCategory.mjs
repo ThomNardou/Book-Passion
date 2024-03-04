@@ -1,5 +1,4 @@
 import express from "express";
-import { books } from "../../db/mock-books.mjs";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
 
@@ -9,7 +8,7 @@ const putCategoryRooter = express();
  * @swagger
  * /api/category/:id:
  *   put:
- *     tags: [BooCategoryks]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     summary: Update a Category using it's id.

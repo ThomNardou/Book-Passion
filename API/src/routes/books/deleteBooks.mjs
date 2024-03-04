@@ -1,6 +1,5 @@
 import express from "express";
-import { books } from "../../db/mock-books.mjs";
-import { success, getBook, removeBook } from "../helper.mjs";
+import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 
 const deleteBooksRouter = express();

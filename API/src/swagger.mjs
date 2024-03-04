@@ -65,11 +65,11 @@ const options = {
                         },
                         coverImage: {
                             type: "string",
-                            description: "A link to the book's cover image."
+                            description: "A link to the book's cover image.",
                         },
                         fk_user: {
                             type: "integer",
-                            description: "The foreign key of the book for his user.", //TODO : explain better
+                            description: "The foreign key of the book for his user.",
                         },
                         fk_category: {
                             type: "integer",
@@ -101,19 +101,19 @@ const options = {
                         },
                         comment: {
                             type: "string",
-                            description: "The comment's content."
+                            description: "The comment's content.",
                         },
                         rate: {
                             type: "integer",
-                            description: "The note chosen by the user."
+                            description: "The note chosen by the user.",
                         },
                         fk_user: {
                             type: "integer",
-                            description: "The foreign key of the user that have posted the comment."
+                            description: "The foreign key of the user that have posted the comment.",
                         },
                         fk_book: {
                             type: "integer",
-                            description: "The foreign key of the book for which the comment has been posted."
+                            description: "The foreign key of the book for which the comment has been posted.",
                         },
                     },
                 },
@@ -147,7 +147,6 @@ const options = {
                         }
                     },
                 },
-                // Ajoutez d'autres schémas ici si nécessaire
             },
         },
         security: [
@@ -156,7 +155,7 @@ const options = {
             },
         ],
     },
-    apis: ["./src/routes/books/*.mjs"], // Chemins vers vos fichiers de route
+    apis: ["./src/routes/books/*.mjs", "./src/routes/category/*.mjs"],
 };
 const swaggerSpec = swaggerJSDoc(options);
     

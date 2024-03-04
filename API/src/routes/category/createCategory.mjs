@@ -1,5 +1,5 @@
 import express from "express";
-import { success, getUniqueId } from "../helper.mjs";
+import { success } from "../helper.mjs";
 import { ValidationError } from "sequelize";
 import { Category } from "../../db/sequelize.mjs";
 

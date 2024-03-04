@@ -1,8 +1,6 @@
 import express from "express";
-import { books } from "../../db/mock-books.mjs";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
-import { Op } from "sequelize";
 import { Book } from "../../db/sequelize.mjs";
 
 const categoryBooksRooter = express();
