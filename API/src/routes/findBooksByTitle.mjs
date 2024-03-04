@@ -19,7 +19,7 @@ const titleBooksRooter = express();
  *         description: Retrieve a book using it's title.
  */
 titleBooksRooter.get("/:title", (req, res) => {
-  Book.findByPk(req.params.title).then((book) => {
+  Book.findOne({where: {title: 'monster'}}).then((book) => {
     const message = `The book with title ${req.params.title} has been retrieved.`;
     res.json(success(message, book));
   });
