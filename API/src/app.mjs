@@ -10,6 +10,7 @@ import { titleBooksRooter } from "./routes/books/findBooksByTitle.mjs";
 import { putBooksRooter } from "./routes/books/updateBooks.mjs";
 import { createBooksRouter } from "./routes/books/createBooks.mjs";
 import { deleteBooksRouter } from "./routes/books/deleteBooks.mjs";
+import { allCategoryRooter } from "./routes/category/findAllCategory.mjs";
 import { initDB, sequelize } from "./db/sequelize.mjs";
 
 const app = express();
@@ -35,6 +36,7 @@ app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
 });
 
+///////////////////////////////////////////////////////////// BOOKS ROOTERS /////////////////////////////////////////////////////////////
 //get all books
 app.use("/api/books", allBooksRooter);
 
@@ -55,6 +57,10 @@ app.use("/api/books", createBooksRouter);
 
 //delete book
 app.use("/api/books", deleteBooksRouter);
+
+///////////////////////////////////////////////////////////// CATEGORY ROOTERS /////////////////////////////////////////////////////////////
+// Get all category
+app.use("/api/category", allCategoryRooter);
 
 //database
 sequelize
