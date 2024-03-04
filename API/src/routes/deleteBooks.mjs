@@ -32,7 +32,7 @@ deleteBooksRouter.delete("/:id", (req, res) => {
         res.json(success(message, deletedBook));
         })
     }).catch((error) => {
-        const message = "Le livre n'a pas pu être supprimé. Merci de réessayer dans quelques instants.";
+        const message = "The book could not be deleted. Please try again in a few moments.";
         res.status(500).json({ message, data: error });
     })
 });
