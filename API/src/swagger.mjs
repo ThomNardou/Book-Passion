@@ -156,7 +156,7 @@ const options = {
             },
         ],
     },
-    apis: ["./src/routes/*.mjs"], // Chemins vers vos fichiers de route
+    apis: ["./src/routes/books/*.mjs"], // Chemins vers vos fichiers de route
 };
 const swaggerSpec = swaggerJSDoc(options);
     
