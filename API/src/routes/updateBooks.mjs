@@ -1,6 +1,7 @@
 import express from "express";
 import { books } from "../db/mock-books.mjs";
 import { success } from "./helper.mjs";
+import { Book } from "../db/sequelize.mjs";
 
 const putBooksRooter = express();
 
@@ -19,19 +20,12 @@ const putBooksRooter = express();
  */
 putBooksRooter.put("/:id", (req, res) => {
     const bookId = req.params.id;
-    const book = books.find((book) => book.id == bookId)
-
-    const updatedBook = {
-        id: bookId,
-        ...req.body,
-    }
-
-    books = books.map((book) =>
-        book.id == bookId ? updatedBook : book
-    );
-
-    const message = `The book with id ${bookId} has been retrieved.`;
-    res.json(success(message, book));
+    Book.update(req.body, { where: { id: bookId } }).then((_) => {
+        Book.findByPk(bookId).then((updatedBook) => {
+            const message = `The book ${updatedBook.name} with id ${updatedBook.id} has been successfully updated`
+            res.json(success(message, updatedBook));
+        });
+    });
 });
 
 export { putBooksRooter };
