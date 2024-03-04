@@ -9,7 +9,7 @@ const putCategoryRooter = express();
  * @swagger
  * /api/category/:id:
  *   put:
- *     tags: [BooCategoryks]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     summary: Update a Category using it's id.
