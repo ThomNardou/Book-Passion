@@ -20,7 +20,7 @@ const idBooksRooter = express();
  */
 idBooksRooter.get("/:id", (req, res) => {
   Book.findByPk(req.params.id).then((book) => {
-    const message = `Le livre dont l'id vaut ${req.params.id} a bien été récupéré.`;
+    const message = `The book with id ${req.params.id} has been retrieved.`;
     res.json(success(message, book));
   });
 });

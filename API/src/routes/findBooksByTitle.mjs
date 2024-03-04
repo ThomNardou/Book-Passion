@@ -1,6 +1,7 @@
 import express from "express";
 import { books } from "../db/mock-books.mjs";
 import { success } from "./helper.mjs";
+import { Book } from "../db/sequelize.mjs";
 
 const titleBooksRooter = express();
 
@@ -18,10 +19,10 @@ const titleBooksRooter = express();
  *         description: Retrieve a book using it's title.
  */
 titleBooksRooter.get("/:title", (req, res) => {
-  const bookTitle = req.params.title;
-  const book = books.find((book) => book.title == bookTitle)
-  const message = `The book with the title ${bookTitle} has been successfully retrieved.`;
-  res.json(success(message, book));
+  Book.findByPk(req.params.title).then((book) => {
+    const message = `The book with title ${req.params.title} has been retrieved.`;
+    res.json(success(message, book));
+  });
 });
 
 export { titleBooksRooter };
