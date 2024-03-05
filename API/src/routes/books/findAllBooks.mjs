@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
+import { Op } from "sequelize";
 
 const allBooksRooter = express();
 
@@ -18,6 +19,21 @@ const allBooksRooter = express();
  *         description: Retrieve all books.
  */
 allBooksRooter.get("/", (req, res) => {
+  if (req.query.title) {
+    if (req.query.title.length < 2) {
+      const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
+      return res.status(400).json({ message });
+    }
+
+    return Book.findAll({
+      where: { title: { [Op.like]: `%${req.query.title}%` } },
+      order: ["title"],
+    }).then((books) => {
+      const message = "The book list has been retrieved.";
+      res.json(success(message, books));
+    });
+  }
+
   Book.findAll()
     .then((books) => {
       const message = "The book list has been retrieved.";

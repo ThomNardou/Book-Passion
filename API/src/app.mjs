@@ -4,7 +4,6 @@ import { swaggerSpec } from "./swagger.mjs";
 import { allBooksRooter } from "./routes/books/findAllBooks.mjs";
 import { idBooksRooter } from "./routes/books/findBooksById.mjs";
 import { categoryBooksRooter } from "./routes/books/findBooksByCategory.mjs";
-import { titleBooksRooter } from "./routes/books/findBooksByTitle.mjs";
 import { putBooksRooter } from "./routes/books/updateBooks.mjs";
 import { createBooksRouter } from "./routes/books/createBooks.mjs";
 import { deleteBooksRouter } from "./routes/books/deleteBooks.mjs";
@@ -49,13 +48,10 @@ app.use("/api/books", allBooksRooter);
 app.use("/api/books", idBooksRooter);
 
 //get book by category
-app.use("/api/books/category", categoryBooksRooter);
-
-//get book by title
-app.use("/api/books/title", titleBooksRooter);
+app.use("/api/categories", categoryBooksRooter);
 
 //update book
-app.use("api/books", putBooksRooter);
+app.use("/api/books", putBooksRooter);
 
 //create book
 app.use("/api/books", createBooksRouter);
@@ -65,19 +61,19 @@ app.use("/api/books", deleteBooksRouter);
 
 ///////////////////////////////////////////////////////////// CATEGORY ROOTERS /////////////////////////////////////////////////////////////
 // Get all category
-app.use("/api/category", allCategoryRooter);
+app.use("/api/categories", allCategoryRooter);
 
 // Create category
-app.use("/api/category", createCategoryRouter);
+app.use("/api/categories", createCategoryRouter);
 
 // Delete category
-app.use("/api/category", deleteCategoryRouter);
+app.use("/api/categories", deleteCategoryRouter);
 
 // Delete category
-app.use("/api/category", putCategoryRooter);
+app.use("/api/categories", putCategoryRooter);
 
 
-
+app.use("/api/login", loginRouter);
 
 
 
