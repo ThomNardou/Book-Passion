@@ -95,7 +95,7 @@ const categoryBooksRooter = express();
 categoryBooksRooter.get("/:id/books", auth,(req, res) => {
   const bookCategory = req.params.id;
 
-  Book.findAll({
+  Book.findAndCountAll({
     include: {
       model: Category,
       require: true,
@@ -106,7 +106,7 @@ categoryBooksRooter.get("/:id/books", auth,(req, res) => {
       }
     },
   }).then((categorybook) => {
-    if (categorybook === null) {
+    if (categorybook.count == 0) {
       const message = "The requested books does not exist. Please try again with another login.";
       return res.status(404).json({ message });
     }
