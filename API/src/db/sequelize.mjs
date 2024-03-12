@@ -9,7 +9,7 @@ const sequelize = new Sequelize("db_books", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   port: 6033,
-  logging: true,
+  logging: false,
 });
 
 const Book = bookModel(sequelize, DataTypes);

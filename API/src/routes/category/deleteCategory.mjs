@@ -14,9 +14,33 @@ const deleteCategoryRouter = express();
  *       - bearerAuth: []
  *     summary: Delete a Category with it's id.
  *     description: Delete a Category with it's id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the category to delete
+ *         required: true
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
- *         description: Delete a Category with it's id.
+ *         description: Delete a book.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The category's name.
+ *                     example: Fantastic
+ *
  */
 deleteCategoryRouter.delete("/:id", auth,(req, res) => {
     Category.findByPk(req.params.id).then((deletedCategory) => {

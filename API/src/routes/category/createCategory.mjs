@@ -15,9 +15,36 @@ const createCategoryRouter = express();
  *       - bearerAuth: []
  *     summary: Create a Category.
  *     description: Create a Category.
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: Category's object that needs to be added
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
  *     responses:
  *       200:
- *         description: Create a Category.
+ *         description: Create a cCategory.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The category's name.
+ *                     example: Fantastic
+ *
  */
 createCategoryRouter.post("/", auth,(req, res) => {
   Category.create(req.body)

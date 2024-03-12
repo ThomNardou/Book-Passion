@@ -16,7 +16,24 @@ const allCategoryRooter = express();
  *     description: Retrieve all Category.
  *     responses:
  *       200:
- *         description: Retrieve all Category.
+ *         description: retrive all categories.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The category's name.
+ *                     example: Fantastic
+ *
  */
 allCategoryRooter.get("/", auth,(req, res) => {
     Category.findAll()

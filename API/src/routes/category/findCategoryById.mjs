@@ -7,7 +7,7 @@ const idCategoryRooter = express();
 
 /**
  * @swagger
- * /api/categories/1:
+ * /api/categories/:id:
  *   get:
  *     tags: [Category]
  *     security:
@@ -16,7 +16,24 @@ const idCategoryRooter = express();
  *     description: Retrieve a category using it's id.
  *     responses:
  *       200:
- *         description: Retrieve a category using it's id.
+ *         description: retrive all categories.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The category's name.
+ *                     example: Fantastic
+ *
  */
 idCategoryRooter.get("/:id", auth,(req, res) => {
   Category.findByPk(req.params.id).then((category) => {
