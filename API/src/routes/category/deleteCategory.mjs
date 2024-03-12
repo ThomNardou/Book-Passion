@@ -43,19 +43,30 @@ const deleteCategoryRouter = express();
  *
  */
 deleteCategoryRouter.delete("/:id", auth,(req, res) => {
+    // Chercher une catégorie à partir de son ID
     Category.findByPk(req.params.id).then((deletedCategory) => {
+        // Regarde si elle a été trouvé
         if (deletedCategory === null) {
+            // Renvoie l'erreur 
             const message = "The requested Category does not exist. Please try again with another login.";
             return res.status(404).json({ message });
         }
 
+        // Supprime la catégorie 
         return Category.destroy({
         where: { id: deletedCategory.id },
         }).then((_) => {
         const message = `The Category ${deletedCategory.name} has been deleted!`;
         res.json(success(message, deletedCategory));
         })
-    }).catch((error) => {
+        // Si une erreur c'est passé pendant la supression de la catégorie 
+        .catch((error) => {
+            const message = "The Category could not be deleted. Please try again in a few moments.";
+            res.status(500).json({ message, data: error });
+        })
+    })
+    // Si une erreur c'est passé pendant la recherche de la catégorie 
+    .catch((error) => {
         const message = "The Category could not be deleted. Please try again in a few moments.";
         res.status(500).json({ message, data: error });
     })

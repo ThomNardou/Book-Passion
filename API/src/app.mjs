@@ -49,40 +49,41 @@ app.get("/api/", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////// BOOKS ROOTERS /////////////////////////////////////////////////////////////
-//get all books
+//define the root to get all books
 app.use("/api/books", allBooksRooter);
 
-//get book by id
+//define the root to get book by id
 app.use("/api/books", idBooksRooter);
 
-//get book by category
+//define the root to get book by category
 app.use("/api/categories", categoryBooksRooter);
 
-//update book
+//define the root to update book
 app.use("/api/books", putBooksRooter);
 
-//create book
+//define the root to define the root to create book
 app.use("/api/books", createBooksRouter);
 
-//delete book
+//define the root to delete book
 app.use("/api/books", deleteBooksRouter);
 
 ///////////////////////////////////////////////////////////// CATEGORY ROOTERS /////////////////////////////////////////////////////////////
-// Get all category
+// define the root to Get all category
 app.use("/api/categories", allCategoryRooter);
 
-// Get category by ID
+// define the root to Get category by ID
 app.use("/api/categories", idCategoryRooter);
 
-// Create category
+// define the root to Create category
 app.use("/api/categories", createCategoryRouter);
 
-// Delete category
+// define the root to Delete category
 app.use("/api/categories", deleteCategoryRouter);
 
-// Delete category
+// define the root to Delete category
 app.use("/api/categories", putCategoryRooter);
 
+// define the root for the login
 app.use("/api/login", loginRouter);
 
 //database
@@ -98,7 +99,7 @@ sequelize
 
 initDB(); //you need to be connected to the database else "error", will delete the data
 
-//Error 404
+//Error 404 if the URL don't exist
 app.use(({ res }) => {
   const message = "Unable to find the requested resource! Try another URL.";
   res.status(404).json(message);

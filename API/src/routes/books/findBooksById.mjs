@@ -82,16 +82,22 @@ const idBooksRooter = express();
  *
  */
 idBooksRooter.get("/:id", auth,(req, res) => {
+  // Chercher un livre par son id
   Book.findByPk(req.params.id).then((book) => {
+    // Si le livre n'existe pas
     if (book === null) {
+      // Retourne un message d'erreur
       const message = "The requested book does not exist. Please try again with another login.";
       return res.status(404).json({ message });
     }
 
+    // Retourne le livre trouvé
     const message = `The book with id ${book.id} has been retrieved.`;
     res.json(success(message, book));
   })
+  // Si une erreur est survenue lors de la récupération du livre
   .catch((error) => {
+    // Retourne un message d'erreur
     const message = "The book could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });
   })

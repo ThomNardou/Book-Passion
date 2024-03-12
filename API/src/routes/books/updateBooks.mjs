@@ -112,21 +112,29 @@ const putBooksRooter = express();
  */
 putBooksRooter.put("/:id", auth,(req, res) => {
     const bookId = req.params.id;
+    // Met à jour le livre avec l'identifiant du livre
     Book.update(req.body, { where: { id: bookId } }).then((_) => {
+        // Récupère le livre mis à jour
         Book.findByPk(bookId).then((updatedBook) => {
+            // Si le livre mis à jour n'existe pas
             if (updatedBook === null) {
+                // Retourne un message d'erreur
                 const message = "The requested book does not exist. Please try again with another login.";
                 return res.status(404).json({ message });
             }
 
+            // Retourne un message de succès
             const message = `The book ${updatedBook.name} with id ${updatedBook.id} has been successfully updated`
             res.json(success(message, updatedBook));
         })
+        // Si une erreur est survenue lors de la récupération du livre mis à jour
         .catch((error) => {
+            // Retourne un message d'erreur
             const message = "The book could not be updated. Please try again shortly.";
             res.status(500).json({ message, data: error });
         })
     })
+    // Si une erreur est survenue lors de la mise à jour du livre
     .catch((error) => {
         const message = "The book could not be updated. Please try again shortly.";
         res.status(500).json({ message, data: error });

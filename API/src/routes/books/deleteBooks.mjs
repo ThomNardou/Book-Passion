@@ -83,19 +83,25 @@ const deleteBooksRouter = express();
  *
  */
 deleteBooksRouter.delete("/:id", auth,(req, res) => {
+    // Chercher le livre par son id
     Book.findByPk(req.params.id).then((deletedBook) => {
+        // Si le livre n'existe pas
         if (deletedBook === null) {
+            // renvoie un message d'erreur
             const message = "The requested book does not exist. Please try again with another login.";
             return res.status(404).json({ message });
         }
 
+        // Supprime le livre avec l'identifiant du livre
         return Book.destroy({
         where: { id: deletedBook.id },
         }).then((_) => {
+        // Renvoie un message de succès
         const message = `The book ${deletedBook.title} has been deleted!`;
         res.json(success(message, deletedBook));
         })
     }).catch((error) => {
+        // Renvoie un message d'erreur
         const message = "The book could not be deleted. Please try again in a few moments.";
         res.status(500).json({ message, data: error });
     })

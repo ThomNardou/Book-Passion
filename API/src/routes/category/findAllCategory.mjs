@@ -36,11 +36,14 @@ const allCategoryRooter = express();
  *
  */
 allCategoryRooter.get("/", auth,(req, res) => {
+  // Cherche toutes le catégories
     Category.findAll()
     .then((category) => {
+      // Renvoie la liste
       const message = "The Category list has been retrieved.";
       res.json(success(message, category));
     })
+    // Si une erreur se produit lors de la recherche des catégories
     .catch((error) => {
       const message =
         "The Category list could not be retrieved. Please try again shortly.";

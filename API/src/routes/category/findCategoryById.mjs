@@ -43,15 +43,20 @@ const idCategoryRooter = express();
  *
  */
 idCategoryRooter.get("/:id", auth,(req, res) => {
+  // Recherche de la catégorie par son identifiant fourni en param
   Category.findByPk(req.params.id).then((category) => {
+    // Regarde si il existe
     if (category === null) {
+      // Renvoie l'erreur
       const message = "The requested category does not exist. Please try again with another login.";
       return res.status(404).json({ message });
     }
 
+    // Si la catégorie existe
     const message = `The category with id ${category.id} has been retrieved.`;
     res.json(success(message, category));
   })
+  // Si une erreur se produit lors de la recherche de la catégorie
   .catch((error) => {
     const message = "The category could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });

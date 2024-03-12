@@ -5,6 +5,7 @@ import { commentModel } from "../models/t_comment.mjs";
 import { UserModel } from "../models/t_user.mjs";
 import bcrypt from "bcrypt";
 
+// Création de la connexion
 const sequelize = new Sequelize("db_books", "root", "root", {
   host: "localhost",
   dialect: "mysql",
@@ -12,11 +13,13 @@ const sequelize = new Sequelize("db_books", "root", "root", {
   logging: false,
 });
 
+// Définis les models
 const Book = bookModel(sequelize, DataTypes);
 const Category = categoryModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 const Comments = commentModel(sequelize, DataTypes);
 
+// Création des relations
 Category.hasMany(Book, {
   foreignKey: "fk_category",
 });
@@ -45,6 +48,7 @@ Book.belongsTo(Category, {
   as: "Category"
 });
 
+// importation des données
 let initDB = () => {
   return sequelize.sync({ force: true }).then(() => {
     importUsers();
