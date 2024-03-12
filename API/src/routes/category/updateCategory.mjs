@@ -59,7 +59,7 @@ putCategoryRooter.put("/:id", auth,(req, res) => {
         Category.findByPk(categoryId).then((updatedCategory) => {
             // Regarde si la catégorie existe
             if (updatedCategory === null) {
-                // Renvoie l'erreur si elle existe pas 
+                // Renvoie l'erreur si elle existe pas (404)
                 const message = "The requested Category does not exist. Please try again with another login.";
                 return res.status(404).json({ message });
             }
@@ -68,13 +68,16 @@ putCategoryRooter.put("/:id", auth,(req, res) => {
             const message = `The Category ${updatedCategory.name} with id ${updatedCategory.id} has been successfully updated`
             res.json(success(message, updatedCategory));
         })
+        // Si une erreur se produit lors de la recherche de la catégorie
         .catch((error) => {
+            // Renvoi le message d'erreur (500)
             const message = "The Category could not be updated. Please try again shortly.";
             res.status(500).json({ message, data: error });
         })
     })
     // Si une erreur se produit lors de la recherche de la catégorie
     .catch((error) => {
+        // Renvoi le message d'erreur (500)
         const message = "The Category could not be updated. Please try again shortly.";
         res.status(500).json({ message, data: error });
     })

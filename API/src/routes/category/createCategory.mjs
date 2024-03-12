@@ -47,7 +47,7 @@ const createCategoryRouter = express();
  *
  */
 createCategoryRouter.post("/", auth,(req, res) => {
-  // Crée la catégorie 
+  // Crée la catégorie avec les données reçues
   Category.create(req.body)
     .then((createCategory) => {
       // Si tout c'est bien passé
@@ -56,12 +56,12 @@ createCategoryRouter.post("/", auth,(req, res) => {
     })
     // Si une erreur se produit lors de la création de la catégorie
     .catch((error) => {
-      // Si l'erreur est une erreur de validation
+      // Si l'erreur est une erreur de validation (400)
       if (error instanceof ValidationError) {
         return res.status(400).json({ message: error.message, data: error });
       }
       
-      // Si l'erreur est une erreur serveur
+      // Si l'erreur est une erreur serveur (500)
       const message = "The Category could not be added. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });

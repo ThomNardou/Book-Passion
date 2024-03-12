@@ -48,7 +48,7 @@ idCategoryRooter.get("/:id", auth,(req, res) => {
     // Regarde si il existe
     if (category === null) {
       // Renvoie l'erreur
-      const message = "The requested category does not exist. Please try again with another login.";
+      const message = "The requested category does not exist. Please try again with another ID.";
       return res.status(404).json({ message });
     }
 
@@ -58,6 +58,7 @@ idCategoryRooter.get("/:id", auth,(req, res) => {
   })
   // Si une erreur se produit lors de la recherche de la catégorie
   .catch((error) => {
+    // Renvoie le message d'erreur (500)
     const message = "The category could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });
   })

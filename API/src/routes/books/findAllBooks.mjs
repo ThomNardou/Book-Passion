@@ -76,23 +76,24 @@ const allBooksRooter = express();
  *                     example: 1
  *
  */
-allBooksRooter.get("/", auth,(req, res) => {
+allBooksRooter.get("/", auth, (req, res) => {
   // Regarde si le paramètre title est présent dans la requête
   if (req.query.title) {
     // vérifie si sa longueur est inférieure à 2
     if (req.query.title.length < 2) {
-      // Si c'est le cas, renvoie un message d'erreur
+      // Si c'est le cas, renvoie un message d'erreur (400)
       const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
       return res.status(400).json({ message });
     }
 
     // Sinon, recherche les livres dont le titre contient le terme de la recherche
-    return Book.findAll({
+    return Book.findAndCountAll({
       where: { title: { [Op.like]: `%${req.query.title}%` } },
       order: ["title"],
     }).then((books) => {
       // Si aucun livre n'est trouvé
-      if (books === null) {
+      if (books.count == 0) {
+        // Renvoie un message "d'erreur" (200)
         const message = "No books found.";
         return res.status(404).json({ message });
       }
@@ -100,17 +101,26 @@ allBooksRooter.get("/", auth,(req, res) => {
       const message = "The book list has been retrieved.";
       res.json(success(message, books));
     })
-    // Si une erreur se produit lors de la recherche des livres
-    .catch((error) => {
-      const message =
-        "The book list could not be retrieved. Please try again shortly.";
-      res.status(500).json({ message, data: error });
-    });
+      // Si une erreur se produit lors de la recherche des livres
+      .catch((error) => {
+        // renvoie un message d'erreur (500)
+        const message =
+          "The book list could not be retrieved. Please try again shortly.";
+        res.status(500).json({ message, data: error });
+      });
   }
 
   // Si le paramètre title n'est pas présent dans la requête 
-  Book.findAll()
+  Book.findAndCountAll()
     .then((books) => {
+
+      // Si aucun livre n'est trouvé
+      if (books.count == 0) {
+        // Renvoie un message "d'erreur" (200)
+        const message = "There are no books registered.";
+        return res.status(404).json({ message });
+      }
+
       // renvoie la liste des livres trouvés
       const message = "The book list has been retrieved.";
       res.json(success(message, books));

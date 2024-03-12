@@ -42,7 +42,7 @@ const deleteCategoryRouter = express();
  *                     example: Fantastic
  *
  */
-deleteCategoryRouter.delete("/:id", auth,(req, res) => {
+deleteCategoryRouter.delete("/:id", auth, (req, res) => {
     // Chercher une catégorie à partir de son ID
     Category.findByPk(req.params.id).then((deletedCategory) => {
         // Regarde si elle a été trouvé
@@ -54,22 +54,25 @@ deleteCategoryRouter.delete("/:id", auth,(req, res) => {
 
         // Supprime la catégorie 
         return Category.destroy({
-        where: { id: deletedCategory.id },
+            where: { id: deletedCategory.id },
         }).then((_) => {
-        const message = `The Category ${deletedCategory.name} has been deleted!`;
-        res.json(success(message, deletedCategory));
+            // Si tout c'est bien passé
+            const message = `The Category ${deletedCategory.name} has been deleted!`;
+            res.json(success(message, deletedCategory));
         })
-        // Si une erreur c'est passé pendant la supression de la catégorie 
+            // Si une erreur c'est passé pendant la supression de la catégorie 
+            .catch((error) => {
+                // Renvoir un message d'erreur (500)
+                const message = "The Category could not be deleted. Please try again in a few moments.";
+                res.status(500).json({ message, data: error });
+            })
+    })
+        // Si une erreur c'est passé pendant la recherche de la catégorie 
         .catch((error) => {
+            // Renvoir un message d'erreur (500)
             const message = "The Category could not be deleted. Please try again in a few moments.";
             res.status(500).json({ message, data: error });
         })
-    })
-    // Si une erreur c'est passé pendant la recherche de la catégorie 
-    .catch((error) => {
-        const message = "The Category could not be deleted. Please try again in a few moments.";
-        res.status(500).json({ message, data: error });
-    })
 });
 
 export { deleteCategoryRouter }

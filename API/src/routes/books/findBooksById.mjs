@@ -86,8 +86,8 @@ idBooksRooter.get("/:id", auth,(req, res) => {
   Book.findByPk(req.params.id).then((book) => {
     // Si le livre n'existe pas
     if (book === null) {
-      // Retourne un message d'erreur
-      const message = "The requested book does not exist. Please try again with another login.";
+      // Retourne un message d'erreur (404)
+      const message = "The requested book does not exist. Please try again with another ID.";
       return res.status(404).json({ message });
     }
 
@@ -97,7 +97,7 @@ idBooksRooter.get("/:id", auth,(req, res) => {
   })
   // Si une erreur est survenue lors de la récupération du livre
   .catch((error) => {
-    // Retourne un message d'erreur
+    // Retourne un message d'erreur (500)
     const message = "The book could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });
   })

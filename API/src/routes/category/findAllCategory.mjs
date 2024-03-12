@@ -37,14 +37,23 @@ const allCategoryRooter = express();
  */
 allCategoryRooter.get("/", auth,(req, res) => {
   // Cherche toutes le catégories
-    Category.findAll()
+    Category.findAndCountAll()
     .then((category) => {
+
+      // Regarde si il y a des catégories
+      if(category.count === 0){
+        // Renvoie le message d'erreur (404)
+        const message = "There are no categories registered.";
+        return res.status(404).json({ message });
+      }
+
       // Renvoie la liste
       const message = "The Category list has been retrieved.";
       res.json(success(message, category));
     })
     // Si une erreur se produit lors de la recherche des catégories
     .catch((error) => {
+      // Renvoie le message d'erreur (500)
       const message =
         "The Category list could not be retrieved. Please try again shortly.";
       res.status(500).json({ message, data: error });

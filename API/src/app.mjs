@@ -25,7 +25,7 @@ const port = 3000;
 const theme = new SwaggerTheme();
 const options = {
   explorer: true,
-  customCss: theme.getBuffer('Outline')
+  customCss: theme.getBuffer('dark')
 };
 
 //swagger documentation

@@ -107,7 +107,7 @@ const createBooksRouter = express();
  *
  */
 createBooksRouter.post("/", auth,(req, res) => {
-  // Création d'un livre
+  // Création d'un livre avec les données reçues
   Book.create(req.body)
     .then((createdBook) => {
       // Renvoie un message de succès
@@ -116,12 +116,12 @@ createBooksRouter.post("/", auth,(req, res) => {
     })
     // Si une erreur est survenue lors de la création du livre
     .catch((error) => {
-      // Si l'erreur est une erreur de validation
+      // Si l'erreur est une erreur de validation (400)
       if (error instanceof ValidationError) {
         return res.status(400).json({ message: error.message, data: error });
       }
       
-      // Renvoie un message d'erreur
+      // Renvoie un message d'erreur (500)
       const message = "The book could not be added. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });

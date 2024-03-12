@@ -109,8 +109,8 @@ categoryBooksRooter.get("/:id/books", auth,(req, res) => {
   }).then((categorybook) => {
     // Si aucun livre n'est trouvé
     if (categorybook.count == 0) {
-      // Retourne un message d'erreur
-      const message = "The requested books does not exist. Please try again with another login.";
+      // Retourne un message d'erreur (404)
+      const message = `No books with category ${bookCategory} have been found.`;
       return res.status(404).json({ message });
     }
 
@@ -120,7 +120,7 @@ categoryBooksRooter.get("/:id/books", auth,(req, res) => {
   })
   // Si une erreur est survenue lors de la récupération des livres
   .catch((error) => {
-    // Retourne un message d'erreur
+    // Retourne un message d'erreur (500)
     const message = "The books could not be recovered. Please try again shortly.";
     res.status(500).json({ message, data: error });
   })

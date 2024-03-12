@@ -118,7 +118,7 @@ putBooksRooter.put("/:id", auth,(req, res) => {
         Book.findByPk(bookId).then((updatedBook) => {
             // Si le livre mis à jour n'existe pas
             if (updatedBook === null) {
-                // Retourne un message d'erreur
+                // Retourne un message d'erreur (404)
                 const message = "The requested book does not exist. Please try again with another login.";
                 return res.status(404).json({ message });
             }
@@ -129,13 +129,14 @@ putBooksRooter.put("/:id", auth,(req, res) => {
         })
         // Si une erreur est survenue lors de la récupération du livre mis à jour
         .catch((error) => {
-            // Retourne un message d'erreur
+            // Retourne un message d'erreur (500)
             const message = "The book could not be updated. Please try again shortly.";
             res.status(500).json({ message, data: error });
         })
     })
     // Si une erreur est survenue lors de la mise à jour du livre
     .catch((error) => {
+        // Retourne un message d'erreur (500)
         const message = "The book could not be updated. Please try again shortly.";
         res.status(500).json({ message, data: error });
     })

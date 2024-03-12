@@ -12,7 +12,7 @@ loginRouter.post("/", (req, res) => {
     .then((user) => {
       // Regarde si l'utilisateur exists
       if (!user) {
-        // renvoie le message d'erreur
+        // renvoie le message d'erreur si il n'existe pas (404)
         const message = `Requested user does not exist`;
         return res.status(404).json({ message });
       }
