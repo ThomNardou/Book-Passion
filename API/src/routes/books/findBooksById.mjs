@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const idBooksRooter = express();
 
@@ -17,7 +18,7 @@ const idBooksRooter = express();
  *       200:
  *         description: Retrieve a book using it's id.
  */
-idBooksRooter.get("/:id", (req, res) => {
+idBooksRooter.get("/:id", auth,(req, res) => {
   Book.findByPk(req.params.id).then((book) => {
     if (book === null) {
       const message = "The requested book does not exist. Please try again with another login.";

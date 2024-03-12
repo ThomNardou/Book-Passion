@@ -3,6 +3,7 @@ import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
 import { Book } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
+import { auth } from "../../auth/auth.mjs";
 
 const categoryBooksRooter = express();
 
@@ -19,7 +20,7 @@ const categoryBooksRooter = express();
  *       200:
  *         description: Retrieve all books with a certain category.
  */
-categoryBooksRooter.get("/:id/books", (req, res) => {
+categoryBooksRooter.get("/:id/books", auth,(req, res) => {
   const bookCategory = req.params.id;
 
   Book.findAll({

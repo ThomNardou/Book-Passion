@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "../helper.mjs";
 import { ValidationError } from "sequelize";
 import { Category } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const createCategoryRouter = express();
 
@@ -18,7 +19,7 @@ const createCategoryRouter = express();
  *       200:
  *         description: Create a Category.
  */
-createCategoryRouter.post("/", (req, res) => {
+createCategoryRouter.post("/", auth,(req, res) => {
   Category.create(req.body)
     .then((createCategory) => {
       const message = `The Category ${createCategory.name} has indeed been created !`;

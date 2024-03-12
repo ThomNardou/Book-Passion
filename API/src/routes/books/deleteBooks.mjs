@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const deleteBooksRouter = express();
 
@@ -17,7 +18,7 @@ const deleteBooksRouter = express();
  *       200:
  *         description: Delete a book with it's id.
  */
-deleteBooksRouter.delete("/:id", (req, res) => {
+deleteBooksRouter.delete("/:id", auth,(req, res) => {
     Book.findByPk(req.params.id).then((deletedBook) => {
         if (deletedBook === null) {
             const message = "The requested book does not exist. Please try again with another login.";

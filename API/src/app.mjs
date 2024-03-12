@@ -11,6 +11,7 @@ import { allCategoryRooter } from "./routes/category/findAllCategory.mjs";
 import { createCategoryRouter } from "./routes/category/createCategory.mjs";
 import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
+import { idCategoryRooter } from "./routes/category/findCategoryById.mjs";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 
@@ -62,6 +63,10 @@ app.use("/api/books", deleteBooksRouter);
 ///////////////////////////////////////////////////////////// CATEGORY ROOTERS /////////////////////////////////////////////////////////////
 // Get all category
 app.use("/api/categories", allCategoryRooter);
+
+// Get category by ID
+app.use("/api/categories", idCategoryRooter);
+
 
 // Create category
 app.use("/api/categories", createCategoryRouter);

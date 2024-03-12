@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const putCategoryRooter = express();
 
@@ -17,7 +18,7 @@ const putCategoryRooter = express();
  *       200:
  *         description: Update a Category using it's id.
  */
-putCategoryRooter.put("/:id", (req, res) => {
+putCategoryRooter.put("/:id", auth,(req, res) => {
     const categoryId = req.params.id;
     Category.update(req.body, { where: { id: categoryId } }).then((_) => {
         Category.findByPk(categoryId).then((updatedCategory) => {

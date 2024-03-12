@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const allCategoryRooter = express();
 
@@ -17,7 +18,7 @@ const allCategoryRooter = express();
  *       200:
  *         description: Retrieve all Category.
  */
-allCategoryRooter.get("/", (req, res) => {
+allCategoryRooter.get("/", auth,(req, res) => {
     Category.findAll()
     .then((category) => {
       const message = "The Category list has been retrieved.";

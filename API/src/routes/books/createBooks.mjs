@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 import { ValidationError } from "sequelize";
+import { auth } from "../../auth/auth.mjs";
 
 const createBooksRouter = express();
 
@@ -18,7 +19,7 @@ const createBooksRouter = express();
  *       200:
  *         description: Create a book.
  */
-createBooksRouter.post("/", (req, res) => {
+createBooksRouter.post("/", auth,(req, res) => {
   Book.create(req.body)
     .then((createdBook) => {
       const message = `The books ${createdBook.title} has indeed been created !`;

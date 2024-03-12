@@ -1,6 +1,7 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const deleteCategoryRouter = express();
 
@@ -17,7 +18,7 @@ const deleteCategoryRouter = express();
  *       200:
  *         description: Delete a Category with it's id.
  */
-deleteCategoryRouter.delete("/:id", (req, res) => {
+deleteCategoryRouter.delete("/:id", auth,(req, res) => {
     Category.findByPk(req.params.id).then((deletedCategory) => {
         if (deletedCategory === null) {
             const message = "The requested Category does not exist. Please try again with another login.";

@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
+import { auth } from "../../auth/auth.mjs";
 
 const allBooksRooter = express();
 
@@ -18,7 +19,7 @@ const allBooksRooter = express();
  *       200:
  *         description: Retrieve all books.
  */
-allBooksRooter.get("/", (req, res) => {
+allBooksRooter.get("/", auth,(req, res) => {
   if (req.query.title) {
     if (req.query.title.length < 2) {
       const message = `Le terme de la recherche doit contenir au moins 2 caractères`;

@@ -1,12 +1,13 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
+import { auth } from "../../auth/auth.mjs";
 
 const putBooksRooter = express();
 
 /**
  * @swagger
- * /api/books:
+ * /api/books/:id:
  *   put:
  *     tags: [Books]
  *     security:
@@ -17,7 +18,7 @@ const putBooksRooter = express();
  *       200:
  *         description: Update a book using it's id.
  */
-putBooksRooter.put("/:id", (req, res) => {
+putBooksRooter.put("/:id", auth,(req, res) => {
     const bookId = req.params.id;
     Book.update(req.body, { where: { id: bookId } }).then((_) => {
         Book.findByPk(bookId).then((updatedBook) => {
