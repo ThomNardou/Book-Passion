@@ -14,6 +14,13 @@ const idCategoryRooter = express();
  *       - bearerAuth: []
  *     summary: Retrieve a category using it's id.
  *     description: Retrieve a category using it's id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the category to find
+ *         required: true
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: retrive all categories.

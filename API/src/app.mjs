@@ -14,6 +14,7 @@ import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { idCategoryRooter } from "./routes/category/findCategoryById.mjs";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
+import { SwaggerTheme } from "swagger-themes";
 
 const app = express();
 
@@ -21,11 +22,17 @@ app.use(express.json());
 
 const port = 3000;
 
+const theme = new SwaggerTheme();
+const options = {
+  explorer: true,
+  customCss: theme.getBuffer('Outline')
+};
+
 //swagger documentation
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
+  swaggerUi.setup(swaggerSpec, options, { explorer: true })
 );
 
 //login authentication
@@ -67,7 +74,6 @@ app.use("/api/categories", allCategoryRooter);
 // Get category by ID
 app.use("/api/categories", idCategoryRooter);
 
-
 // Create category
 app.use("/api/categories", createCategoryRouter);
 
@@ -77,10 +83,7 @@ app.use("/api/categories", deleteCategoryRouter);
 // Delete category
 app.use("/api/categories", putCategoryRooter);
 
-
 app.use("/api/login", loginRouter);
-
-
 
 //database
 sequelize
@@ -93,12 +96,11 @@ sequelize
   // If it could'nt connect
   .catch((error) => console.error("Unable to connect to DB"));
 
-  initDB(); //you need to be connected to the database else "error", will delete the data
+initDB(); //you need to be connected to the database else "error", will delete the data
 
 //Error 404
 app.use(({ res }) => {
-  const message =
-    "Unable to find the requested resource! Try another URL.";
+  const message = "Unable to find the requested resource! Try another URL.";
   res.status(404).json(message);
 });
 

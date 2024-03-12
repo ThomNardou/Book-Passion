@@ -14,9 +14,42 @@ const putCategoryRooter = express();
  *       - bearerAuth: []
  *     summary: Update a Category using it's id.
  *     description: Update a Category using it's id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the category to update
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: body
+ *         name: body
+ *         description: Category object that needs to be update
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
  *     responses:
  *       200:
- *         description: Update a Category using it's id.
+ *         description: retrive all categories.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The category's name.
+ *                     example: Fantastic
+ *
  */
 putCategoryRooter.put("/:id", auth,(req, res) => {
     const categoryId = req.params.id;
