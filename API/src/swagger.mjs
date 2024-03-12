@@ -155,7 +155,7 @@ const options = {
             },
         ],
     },
-    apis: ["./src/routes/books/*.mjs", "./src/routes/category/*.mjs"],
+    apis: ["./src/routes/books/*.mjs", "./src/routes/category/*.mjs", "./src/routes/login.mjs"],
 };
 const swaggerSpec = swaggerJSDoc(options);
     

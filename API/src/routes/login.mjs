@@ -6,6 +6,69 @@ import { privateKey } from "../auth/private_key.mjs";
 
 const loginRouter = express();
 
+
+/**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     tags: [Login]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Give a token to the user to connect to the API.
+ *     description: Give a token to the user to connect to the API.
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: User object that needs to be login
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: Give the token.
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The book ID.
+ *                     example: 1
+ *                   username:
+ *                     type: string
+ *                     description: the username.
+ *                     example: etml
+ *                   password:
+ *                     type: string
+ *                     description: the user's password crypted.
+ *                     example: $2b$10$GRxGKtFcz47fI.4/bT6hyuuMHPthqHZQQOtecnY5dzZFy7VOomw0u
+ *                   nbrBookRecommended:
+ *                     type: number
+ *                     description: the number of books the user has recommended .
+ *                     example: 5
+ *                   nbrRatingDone:
+ *                     type: string
+ *                     description: the number of books noted by the user.
+ *                     example: 5
+ *                   nbrCommentsDone:
+ *                     type: number
+ *                     description: the number of comments done by the user.
+ *                     example: 2
+ *                   token:
+ *                     type: string
+ *                     description: the user token.
+ *                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDI4MDkzOCwiZXhwIjoxNzQxODM4NTM4fQ.2dyNunUEFO5E9qctmJTjMIP36l9UVtLgrrykCfilYE4
+ *
+ */
 loginRouter.post("/", (req, res) => {
   // Cherche un utilisateur qui a le même nom dans le base de données que celui rentré en param
   User.findOne({ where: { username: req.body.username } })
