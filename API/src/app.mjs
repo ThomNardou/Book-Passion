@@ -16,9 +16,12 @@ import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 import { SwaggerTheme } from "swagger-themes";
 
+import cors from "cors";
+
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const port = 3000;
 
