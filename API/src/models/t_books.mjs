@@ -105,15 +105,7 @@ const bookModel = (sequelize, DataTypes) => {
           msg: "The illustration image link is a mandatory property.",
         },
       },
-    },
-    fk_user: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    fk_category: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    }
   });
 };
 

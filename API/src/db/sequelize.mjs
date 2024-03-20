@@ -23,9 +23,10 @@ const Comments = commentModel(sequelize, DataTypes);
 Category.hasMany(Book, {
   foreignKey: "fk_category",
 });
-User.hasMany(Book, {
-  foreignKey: "fk_user",
-});
+
+// User.hasMany(Book, {
+//   foreignKey: "fk_user",
+// });
 Book.hasMany(Comments, {
   foreignKey: "fk_book",
 });
@@ -33,26 +34,58 @@ User.hasMany(Comments, {
   foreignKey: "fk_user",
 });
 
-
 Comments.belongsTo(User, {
   foreignKey: "fk_user",
 });
 Comments.belongsTo(Book, {
   foreignKey: "fk_book",
 });
-Book.belongsTo(User, {
-  foreignKey: "fk_user",
-});
+// Book.belongsTo(User, {
+//   foreignKey: "fk_user",
+// });
 Book.belongsTo(Category, {
   foreignKey: "fk_category",
-  as: "Category"
 });
+
+let books, categories;
 
 // importation des données
 let initDB = () => {
-  return sequelize.sync({ force: true }).then(() => {
-    importUsers();
-    console.log("The database has been synchronized.");
+  return sequelize
+    .sync({ force: true })
+    .then(() => {
+      importBooks();
+      importCategories();
+      return Book.findOne({ where: { title: "testCreate" } });
+
+      console.log("The database has been synchronized.");
+    })
+    .then((book) => {
+      books = book;
+      return Category.findOne({ where: { name: "coucou" } }).then((category) => {
+        categories = category;
+        Book.update({ fk_category: category.id });
+      });
+    });
+};
+
+const importBooks = async () => {
+  Book.create({
+    title: "testCreate",
+    numberPages: 500,
+    excerpt: "Lorem Ipsum",
+    summary: "Lorem",
+    writer: "Michel Duvois",
+    editor: "aaaaaaaaaa",
+    releaseYear: 2024,
+    avgRating: 4.2,
+    coverImage: "ghsrighsrgs.com",
+  });
+};
+
+const importCategories = () => {
+  Category.create({
+    name: "coucou",
   });
 };
 
@@ -65,7 +98,7 @@ const importUsers = () => {
         password: hash,
         nbrBookRecommended: 4,
         nbrRatingDone: 2,
-        nbrCommentsDone: 2
+        nbrCommentsDone: 2,
       })
     )
     .then((user) => console.log(user.toJSON()));
