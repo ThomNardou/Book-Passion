@@ -120,7 +120,7 @@ categoryBooksRooter.get("/:id/books", auth, (req, res) => {
       if (categorybook.count == 0) {
         // Retourne un message d'erreur (404)
         const message = `No books with category ${bookCategory} have been found.`;
-        return res.status(404).json({ message });
+        return res.status(200).json({ message });
       }
 
       // Retourne les livres trouvés

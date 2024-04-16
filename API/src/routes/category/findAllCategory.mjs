@@ -44,7 +44,7 @@ allCategoryRooter.get("/", auth,(req, res) => {
       if(category.count === 0){
         // Renvoie le message d'erreur (404)
         const message = "There are no categories registered.";
-        return res.status(404).json({ message });
+        return res.status(200).json({ message });
       }
 
       // Renvoie la liste

@@ -24,9 +24,9 @@ Category.hasMany(Book, {
   foreignKey: "fk_category",
 });
 
-// User.hasMany(Book, {
-//   foreignKey: "fk_user",
-// });
+User.hasMany(Book, {
+  foreignKey: "fk_user",
+});
 Book.hasMany(Comments, {
   foreignKey: "fk_book",
 });
@@ -40,9 +40,9 @@ Comments.belongsTo(User, {
 Comments.belongsTo(Book, {
   foreignKey: "fk_book",
 });
-// Book.belongsTo(User, {
-//   foreignKey: "fk_user",
-// });
+Book.belongsTo(User, {
+  foreignKey: "fk_user",
+});
 Book.belongsTo(Category, {
   foreignKey: "fk_category",
 });
@@ -53,24 +53,31 @@ let books, categories;
 let initDB = () => {
   return sequelize
     .sync({ force: true })
-    .then(() => {
-      importBooks();
-      importCategories();
-      return Book.findOne({ where: { title: "testCreate" } });
+    .then( async () => {
+      // const temp = importBooks();
+      // importCategories();
+
+      // console.log(temp)
+
+      // return Book.findOne({ where: { title: "testCreate" } });
+      importUsers();
 
       console.log("The database has been synchronized.");
     })
-    .then((book) => {
-      books = book;
-      return Category.findOne({ where: { name: "coucou" } }).then((category) => {
-        categories = category;
-        Book.update({ fk_category: category.id });
-      });
-    });
+
+    // .then((book) => {
+    //   books = book;
+    //   console.log(book)
+    //   return Category.findOne({ where: { name: "coucou" } }).then((category) => {
+    //     categories = category;
+    //     console.log(category)
+    //     // Book.update({ fk_category: category.id });
+    //   });
+    // });
 };
 
-const importBooks = async () => {
-  Book.create({
+const importBooks = () => {
+  return Book.create({
     title: "testCreate",
     numberPages: 500,
     excerpt: "Lorem Ipsum",
@@ -83,8 +90,8 @@ const importBooks = async () => {
   });
 };
 
-const importCategories = () => {
-  Category.create({
+const importCategories = async () => {
+  await Category.create({
     name: "coucou",
   });
 };

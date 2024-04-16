@@ -95,7 +95,7 @@ allBooksRooter.get("/", auth, (req, res) => {
       if (books.count == 0) {
         // Renvoie un message "d'erreur" (200)
         const message = "No books found.";
-        return res.status(404).json({ message });
+        return res.status(200).json({ message });
       }
       // Renvoie la liste des livres trouvés
       const message = "The book list has been retrieved.";
@@ -118,7 +118,7 @@ allBooksRooter.get("/", auth, (req, res) => {
       if (books.count == 0) {
         // Renvoie un message "d'erreur" (200)
         const message = "There are no books registered.";
-        return res.status(404).json({ message });
+        return res.json({ message });
       }
 
       // renvoie la liste des livres trouvés
