@@ -52,7 +52,7 @@ let books, categories;
 // importation des données
 let initDB = () => {
   return sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then( async () => {
       // const temp = importBooks();
       // importCategories();

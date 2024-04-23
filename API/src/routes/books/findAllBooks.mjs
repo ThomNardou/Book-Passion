@@ -77,6 +77,17 @@ const allBooksRooter = express();
  *
  */
 allBooksRooter.get("/", auth, (req, res) => {
+
+  let limitReq = 5;
+
+  console.log(limitReq)
+
+  if (req.query.limit) {
+    limitReq = parseInt(req.query.limit)
+  }
+
+  console.log(limitReq)
+
   // Regarde si le paramètre title est présent dans la requête
   if (req.query.title) {
     // vérifie si sa longueur est inférieure à 2
@@ -90,6 +101,33 @@ allBooksRooter.get("/", auth, (req, res) => {
     return Book.findAndCountAll({
       where: { title: { [Op.like]: `%${req.query.title}%` } },
       order: ["title"],
+      limit: limitReq
+    }).then((books) => {
+      // Si aucun livre n'est trouvé
+      if (books.count == 0) {
+        // Renvoie un message "d'erreur" (200)
+        const message = "No books found.";
+        return res.status(200).json({ message });
+      }
+      // Renvoie la liste des livres trouvés
+      const message = "The book list has been retrieved.";
+      res.json(success(message, books));
+    })
+      // Si une erreur se produit lors de la recherche des livres
+      .catch((error) => {
+        // renvoie un message d'erreur (500)
+        const message =
+          "The book list could not be retrieved. Please try again shortly.";
+        res.status(500).json({ message, data: error });
+      });
+  }
+
+  if (req.query.order) {
+
+    // Sinon, recherche les livres dont le titre contient le terme de la recherche
+    return Book.findAndCountAll({
+      order: [req.query.order],
+      limit: limitReq
     }).then((books) => {
       // Si aucun livre n'est trouvé
       if (books.count == 0) {
