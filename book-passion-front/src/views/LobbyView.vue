@@ -13,7 +13,7 @@ export default {
   },
   mounted() {
     this.getAllbooks();
-    console.log(this.lastBooks);
+    console.log(typeof this.lastBooks);
   },
   methods: {
     async getAllbooks() {
@@ -25,10 +25,11 @@ export default {
           },
         })
         .then((result) => {
-        //   console.log(result);
+            for (let i = 0; i<result.data.data.rows.length; i++) {
+                this.lastBooks.push(result.data.data.rows[i])
+            }
 
-          this.lastBooks[0] = result.data.data.rows[0].editor;
-          console.log(this.lastBooks);
+            console.log(this.lastBooks[0])
         })
         .catch((err) => {
           console.log(err);
@@ -39,11 +40,17 @@ export default {
 </script>
 <template>
   <LobbyHeader />
-  <bookCompent
-    :userName="'test'"
-    :authorname="lastBooks.writer"
-    :title="lastBooks.title"
-  />
+  <div v-if="lastBooks.length > 0">
+    <bookCompent
+      :userName="'test'"
+      :authorname="lastBooks[0].writer"
+      :title="lastBooks[0].title"
+    />
+  </div>
+  <div v-else>
+    <!-- Affichez un message pendant le chargement des données -->
+    <p>Chargement des livres...</p>
+  </div>
 </template>
 
 <style></style>
