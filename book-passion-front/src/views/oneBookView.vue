@@ -1,3 +1,7 @@
+<script>
+import addComment from '@/components/oneBook/addComment.vue';
+import { AnFilledStar } from "@kalimahapps/vue-icons";
+</script>
 <template>
     <div id="information">
         <img :src="book.coverImage" alt="image de couverture" id="coverImage">
@@ -7,7 +11,7 @@
         <p><span class="data">Auteur : </span>{{ book.auteur }}</p>
         <p><span class="data">Éditeur : </span>{{ book.editeur }}</p>
         <p><span class="data">Année d'édition : </span>{{ book.editionYear }}</p>
-        <p><span :class="index <= book.rating ? 'colorYellow' : ''" v-for="index in 5" :key="index">*</span></p>
+        <p><span :class="index <= book.rating ? 'colorYellow' : ''" v-for="index in 5" :key="index"><AnFilledStar /></span></p>
     </div>
     <br><br><br>
     <h2 class="part-heading">Synopsis</h2>
@@ -17,12 +21,18 @@
         <div class="comment">
             <p class="comment_name">{{ comment.name }}</p>
             <p class="comment_title">{{ comment.title }}</p>
-            <p class="comment_note"><span :class="index <= comment.note ? 'colorYellow' : ''" v-for="index in 5" :key="index">*</span></p>
+            <p class="comment_note"><span :class="index <= comment.note ? 'colorYellow' : ''" v-for="index in 5"
+                    :key="index">
+                    <AnFilledStar />
+                </span></p>
             <p class="comment_comment">{{ comment.comment }}</p>
         </div>
         <hr>
     </div>
-    </template>
+    <div class="addComment">
+        <addComment />
+    </div>
+</template>
 
 <script setup>
 
@@ -84,6 +94,7 @@ h2 {
 
 .part {
     padding-left: 150px;
+    padding-bottom: 25px;
 }
 
 hr {
@@ -103,7 +114,7 @@ hr {
     grid-area: 1/1;
     width: auto;
 }
- 
+
 .comment_title {
     font-size: 25px;
     grid-area: 1/2;
@@ -127,5 +138,11 @@ hr {
 
 .part-heading-comment {
     margin-bottom: 100px;
+}
+
+.addComment {
+    position: sticky;
+    bottom: 0;
+    left: 25%;
 }
 </style>
