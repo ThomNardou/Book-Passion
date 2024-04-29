@@ -95,49 +95,52 @@ const categoryBooksRooter = express();
 categoryBooksRooter.get("/:id/books", auth, (req, res) => {
   const bookCategory = req.params.id;
 
-  Category.findByPk(bookCategory).then((category) => {
-
-    // Si la catégorie n'existe pas
-    if (!category) {
-      // Retourne un message d'erreur (404)
-      const message = `The category with id ${bookCategory} does not exist.`;
-      return res.status(404).json({ message });
-    }
-
-    // Cherche les livres avec la catégorie demandée et compte le nombre de résultats
-    Book.findAndCountAll({
-      include: {
-        model: Category,
-        require: true,
-        attributes: ["id", "name"],
-        as: 'Category',
-        where: {
-          id: { [Op.eq]: bookCategory }
-        }
-      },
-    }).then((categorybook) => {
-      // Si aucun livre n'est trouvé
-      if (categorybook.count == 0) {
+  Category.findByPk(bookCategory)
+    .then((category) => {
+      // Si la catégorie n'existe pas
+      if (!category) {
         // Retourne un message d'erreur (404)
-        const message = `No books with category ${bookCategory} have been found.`;
-        return res.status(200).json({ message });
+        const message = `The category with id ${bookCategory} does not exist.`;
+        return res.status(404).json({ message });
       }
 
-      // Retourne les livres trouvés
-      const message = `The books with category ${bookCategory} have been retrieved.`;
-      res.json(success(message, categorybook));
+      // Cherche les livres avec la catégorie demandée et compte le nombre de résultats
+      Book.findAndCountAll({
+        include: {
+          model: Category,
+          as: "Categ",
+          required: true,
+          attributes: ["id", "name"],
+          where: {
+            id: { [Op.eq]: bookCategory },
+          },
+        },
+      })
+        .then((categorybook) => {
+          // Si aucun livre n'est trouvé
+          if (categorybook.count == 0) {
+            // Retourne un message d'erreur (404)
+            const message = `No books with category ${bookCategory} have been found.`;
+            return res.status(200).json({ message });
+          }
+
+          // Retourne les livres trouvés
+          const message = `The books with category ${bookCategory} have been retrieved.`;
+          res.json(success(message, categorybook));
+        })
+        // Si une erreur est survenue lors de la récupération des livres
+        .catch((error) => {
+          // Retourne un message d'erreur (500)
+          const message =
+            "The books could not be recovered. Please try again shortly.";
+          res.status(500).json({ message, data: error });
+        });
     })
-      // Si une erreur est survenue lors de la récupération des livres
-      .catch((error) => {
-        // Retourne un message d'erreur (500)
-        const message = "The books could not be recovered. Please try again shortly.";
-        res.status(500).json({ message, data: error });
-      });
-  })
     // Si une erreur est survenue lors de la récupération de la catégorie
     .catch((error) => {
       // Retourne un message d'erreur (500)
-      const message = "The category could not be recovered. Please try again shortly.";
+      const message =
+        "The category could not be recovered. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });
 });

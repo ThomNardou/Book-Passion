@@ -13,7 +13,6 @@ export default {
   },
   mounted() {
     this.getAllbooks();
-    console.log(typeof this.lastBooks);
   },
   methods: {
     async getAllbooks() {
@@ -25,11 +24,8 @@ export default {
           },
         })
         .then((result) => {
-            for (let i = 0; i<result.data.data.rows.length; i++) {
-                this.lastBooks.push(result.data.data.rows[i])
-            }
-
-            console.log(this.lastBooks[0])
+          this.lastBooks = result.data.data.rows
+          console.log(this.lastBooks)
         })
         .catch((err) => {
           console.log(err);
@@ -40,17 +36,37 @@ export default {
 </script>
 <template>
   <LobbyHeader />
-  <div v-if="lastBooks.length > 0">
-    <bookCompent
-      :userName="'test'"
-      :authorname="lastBooks[0].writer"
-      :title="lastBooks[0].title"
-    />
+  <div v-if="lastBooks.length > 0" class="bookContainer">
+      <bookCompent
+        v-for="book in lastBooks"
+        :userName="'test'"
+        :authorname="book.writer"
+        :title="book.title"
+        :imageSrc="book.coverImage"
+      />
   </div>
   <div v-else>
     <!-- Affichez un message pendant le chargement des données -->
-    <p>Chargement des livres...</p>
+    <div class="custom-loader"></div>
   </div>
 </template>
 
-<style></style>
+<style scoped>
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #94e8b4);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.bookContainer {
+  display: flex;
+}
+</style>

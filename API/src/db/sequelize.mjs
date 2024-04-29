@@ -24,6 +24,7 @@ Category.hasMany(Book, {
   foreignKey: "fk_category",
 });
 
+
 User.hasMany(Book, {
   foreignKey: "fk_user",
 });
@@ -33,6 +34,7 @@ Book.hasMany(Comments, {
 User.hasMany(Comments, {
   foreignKey: "fk_user",
 });
+
 
 Comments.belongsTo(User, {
   foreignKey: "fk_user",
@@ -46,8 +48,6 @@ Book.belongsTo(User, {
 Book.belongsTo(Category, {
   foreignKey: "fk_category",
 });
-
-let books, categories;
 
 // importation des données
 let initDB = () => {

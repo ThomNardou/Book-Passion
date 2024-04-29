@@ -80,13 +80,9 @@ allBooksRooter.get("/", auth, (req, res) => {
 
   let limitReq = 5;
 
-  console.log(limitReq)
-
   if (req.query.limit) {
     limitReq = parseInt(req.query.limit)
   }
-
-  console.log(limitReq)
 
   // Regarde si le paramètre title est présent dans la requête
   if (req.query.title) {
