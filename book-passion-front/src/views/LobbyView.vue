@@ -67,6 +67,7 @@ export default {
 }
 
 .bookContainer {
-  display: flex;
+  
+  overflow-x: scroll;
 }
 </style>
