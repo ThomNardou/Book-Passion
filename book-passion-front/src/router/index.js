@@ -11,9 +11,10 @@ const router = createRouter({
       component: LobbyView
     },
     {
-      path: '/book',
+      path: '/book/:id',
       name: 'book',
-      component: OneBookView
+      component: OneBookView,
+      props: true
     }
   ]
 })
