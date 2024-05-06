@@ -3,7 +3,7 @@
         <footer>
             <div class="name">
                 <p>Thomas Nardou</p>
-                <p>joachim Berchel</p>
+                <p>Joachim Berchel</p>
             </div>
             <div class="email">
                 <a href="mailto:thomas.nardou@eduvaud.ch">
