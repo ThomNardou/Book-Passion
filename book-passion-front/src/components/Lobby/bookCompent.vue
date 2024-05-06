@@ -14,6 +14,7 @@
     <h2>{{ title }}</h2>
     <p>Author : {{ authorname }}</p>
     <p>Posted by : {{ userName }}</p>
+    <p>Posted At : {{ new Date(createdAt).toLocaleDateString("fr-FR", {day : '2-digit', month: '2-digit', year: 'numeric'} ) }}</p>
   </div>
 </template>
 <script>
@@ -23,6 +24,7 @@ export default {
     imageSrc: String,
     authorname: String,
     userName: String,
+    createdAt: Date
   }
 };
 </script>
@@ -37,7 +39,7 @@ export default {
   padding: 40px;
   background-size: cover;
   background-position: center;
-  margin: 30px 20px;
+  margin: 20px;
 }
 
 .bookCard:hover h2, .bookCard:hover p {

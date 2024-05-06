@@ -1,6 +1,9 @@
 <script setup>
 import LobbyHeader from "@/components/Lobby/LobbyHeader.vue";
 import bookCompent from "@/components/Lobby/bookCompent.vue";
+import webSiteDesription from '@/components/Lobby/webSiteDescription.vue'
+import ourTeamComponent from '@/components/Lobby/ourTeamComponent.vue'
+import { RouterLink } from "vue-router";
 import axios from "axios";
 </script>
 
@@ -24,8 +27,8 @@ export default {
           },
         })
         .then((result) => {
-          this.lastBooks = result.data.data.rows
-          console.log(this.lastBooks)
+          console.log(result.data.data.rows)
+          this.lastBooks = result.data.data.rows;
         })
         .catch((err) => {
           console.log(err);
@@ -34,32 +37,54 @@ export default {
   },
 };
 </script>
+
 <template>
+
   <LobbyHeader />
+  <webSiteDesription />
+
   <div v-if="lastBooks.length > 0" class="bookContainer">
-      <bookCompent
-        v-for="book in lastBooks"
-        :userName="'test'"
-        :authorname="book.writer"
-        :title="book.title"
-        :imageSrc="book.coverImage"
-      />
+    <RouterLink v-for="book in lastBooks" :key="book.id" class="routerLink">
+      <bookCompent  :userName="book.t_user.username" :authorname="book.writer" :title="book.title" :imageSrc="book.coverImage" :createdAt="book.createdAt"/>
+    </RouterLink>
   </div>
-  <div v-else>
-    <!-- Affichez un message pendant le chargement des données -->
+  <div v-else class="loader">
     <div class="custom-loader"></div>
+    <p>Chargement en Cours...</p>
   </div>
+
+  <ourTeamComponent />
+
 </template>
 
 <style scoped>
+* {
+  font-family: kanit;
+  color: white;
+}
+
 .custom-loader {
-  width: 50px;
-  height: 50px;
+  justify-self: center;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: conic-gradient(#0000 10%, #94e8b4);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: s3 1s infinite linear;
 }
+
+.routerLink {
+  text-decoration: none;
+}
+
+.loader {
+  display: grid;
+  justify-content: center;
+  height: 50vh;
+  text-align: center;
+  margin: 120px 0;
+}
+
 @keyframes s3 {
   to {
     transform: rotate(1turn);
@@ -68,5 +93,8 @@ export default {
 
 .bookContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 120px;
 }
 </style>

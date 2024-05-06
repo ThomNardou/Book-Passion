@@ -22,6 +22,7 @@ header {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   color: white;
   display: flex;
   justify-content: space-between;

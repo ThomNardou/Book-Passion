@@ -3,6 +3,8 @@ import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
 import { auth } from "../../auth/auth.mjs";
+import { Category } from "../../db/sequelize.mjs";
+import { User } from "../../db/sequelize.mjs";
 
 const allBooksRooter = express();
 
@@ -77,11 +79,10 @@ const allBooksRooter = express();
  *
  */
 allBooksRooter.get("/", auth, (req, res) => {
-
   let limitReq = 5;
 
   if (req.query.limit) {
-    limitReq = parseInt(req.query.limit)
+    limitReq = parseInt(req.query.limit);
   }
 
   // Regarde si le paramètre title est présent dans la requête
@@ -94,60 +95,101 @@ allBooksRooter.get("/", auth, (req, res) => {
     }
 
     // Sinon, recherche les livres dont le titre contient le terme de la recherche
-    return Book.findAndCountAll({
-      where: { title: { [Op.like]: `%${req.query.title}%` } },
-      order: ["title"],
-      limit: limitReq
-    }).then((books) => {
-      // Si aucun livre n'est trouvé
-      if (books.count == 0) {
-        // Renvoie un message "d'erreur" (200)
-        const message = "No books found.";
-        return res.status(200).json({ message });
-      }
-      // Renvoie la liste des livres trouvés
-      const message = "The book list has been retrieved.";
-      res.json(success(message, books));
-    })
-      // Si une erreur se produit lors de la recherche des livres
-      .catch((error) => {
-        // renvoie un message d'erreur (500)
-        const message =
-          "The book list could not be retrieved. Please try again shortly.";
-        res.status(500).json({ message, data: error });
-      });
+    return (
+      Book.findAndCountAll({
+        where: { title: { [Op.like]: `%${req.query.title}%` } },
+        order: ["title"],
+        limit: limitReq,
+        include: [
+          {
+            model: Category,
+            required: true,
+            attributes: ["id", "name"],
+          },
+          {
+            model: User,
+            required: true,
+            attributes: ["username"],
+          }
+        ],
+      })
+        .then((books) => {
+          // Si aucun livre n'est trouvé
+          if (books.count == 0) {
+            // Renvoie un message "d'erreur" (200)
+            const message = "No books found.";
+            return res.status(200).json({ message });
+          }
+          // Renvoie la liste des livres trouvés
+          const message = "The book list has been retrieved.";
+          res.json(success(message, books));
+        })
+        // Si une erreur se produit lors de la recherche des livres
+        .catch((error) => {
+          // renvoie un message d'erreur (500)
+          const message =
+            "The book list could not be retrieved. Please try again shortly.";
+          res.status(500).json({ message, data: error });
+        })
+    );
   }
 
   if (req.query.order) {
-
     // Sinon, recherche les livres dont le titre contient le terme de la recherche
-    return Book.findAndCountAll({
-      order: [req.query.order],
-      limit: limitReq
-    }).then((books) => {
-      // Si aucun livre n'est trouvé
-      if (books.count == 0) {
-        // Renvoie un message "d'erreur" (200)
-        const message = "No books found.";
-        return res.status(200).json({ message });
-      }
-      // Renvoie la liste des livres trouvés
-      const message = "The book list has been retrieved.";
-      res.json(success(message, books));
-    })
-      // Si une erreur se produit lors de la recherche des livres
-      .catch((error) => {
-        // renvoie un message d'erreur (500)
-        const message =
-          "The book list could not be retrieved. Please try again shortly.";
-        res.status(500).json({ message, data: error });
-      });
+    return (
+      Book.findAndCountAll({
+        order: [req.query.order],
+        limit: limitReq,
+        include: [
+          {
+            model: Category,
+            required: true,
+            attributes: ["id", "name"],
+          },
+          {
+            model: User,
+            required: true,
+            attributes: ["username"],
+          }
+        ],
+      })
+        .then((books) => {
+          // Si aucun livre n'est trouvé
+          if (books.count == 0) {
+            // Renvoie un message "d'erreur" (200)
+            const message = "No books found.";
+            return res.status(200).json({ message });
+          }
+          // Renvoie la liste des livres trouvés
+          const message = "The book list has been retrieved.";
+          res.json(success(message, books));
+        })
+        // Si une erreur se produit lors de la recherche des livres
+        .catch((error) => {
+          // renvoie un message d'erreur (500)
+          const message =
+            "The book list could not be retrieved. Please try again shortly.";
+          res.status(500).json({ message, data: error });
+        })
+    );
   }
 
-  // Si le paramètre title n'est pas présent dans la requête 
-  Book.findAndCountAll()
+  // Si le paramètre title n'est pas présent dans la requête
+  Book.findAndCountAll({
+    include: [
+      {
+        model: Category,
+        required: true,
+        attributes: ["id", "name"],
+      },
+      {
+        model: User,
+        required: true,
+        attributes: ["username"],
+      }
+    ],
+  })
     .then((books) => {
-
       // Si aucun livre n'est trouvé
       if (books.count == 0) {
         // Renvoie un message "d'erreur" (200)
