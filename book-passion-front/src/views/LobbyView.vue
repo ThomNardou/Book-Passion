@@ -1,6 +1,9 @@
 <script setup>
 import LobbyHeader from "@/components/Lobby/LobbyHeader.vue";
 import bookCompent from "@/components/Lobby/bookCompent.vue";
+import webSiteDesription from '@/components/Lobby/webSiteDescription.vue'
+import ourTeamComponent from '@/components/Lobby/ourTeamComponent.vue'
+import { RouterLink } from "vue-router";
 import axios from "axios";
 </script>
 
@@ -24,6 +27,7 @@ export default {
           },
         })
         .then((result) => {
+          console.log(result.data.data.rows)
           this.lastBooks = result.data.data.rows;
         })
         .catch((err) => {
@@ -33,35 +37,23 @@ export default {
   },
 };
 </script>
+
 <template>
+
   <LobbyHeader />
-
-
-  <div class="description">
-    <h1>About <span>Us</span></h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse. Magna fermentum iaculis eu non diam
-      phasellus vestibulum lorem. Diam donec adipiscing tristique risus nec feugiat. Ipsum dolor sit amet consectetur
-      adipiscing elit duis tristique sollicitudin. Elit eget gravida cum sociis natoque penatibus. Quis risus sed
-      vulputate odio ut enim. Molestie ac feugiat sed lectus vestibulum. Mattis nunc sed blandit libero volutpat sed
-      cras. Id leo in vitae turpis massa sed elementum tempus egestas. Id nibh tortor id aliquet lectus. Nunc id cursus
-      metus aliquam eleifend mi in nulla posuere. Malesuada pellentesque elit eget gravida cum sociis natoque. Nec
-      ultrices dui sapien eget mi proin sed libero. Adipiscing elit duis tristique sollicitudin nibh sit. Enim sed
-      faucibus turpis in eu mi.
-    </p>
-  </div>
-
+  <webSiteDesription />
 
   <div v-if="lastBooks.length > 0" class="bookContainer">
-    <bookCompent v-for="book in lastBooks" :userName="'test'" :authorname="book.writer" :title="book.title"
-      :imageSrc="book.coverImage" />
+    <RouterLink v-for="book in lastBooks" :key="book.id" class="routerLink">
+      <bookCompent  :userName="book.t_user.username" :authorname="book.writer" :title="book.title" :imageSrc="book.coverImage" :createdAt="book.createdAt"/>
+    </RouterLink>
   </div>
-  <div v-else>
-    <!-- Affichez un message pendant le chargement des données -->
+  <div v-else class="loader">
     <div class="custom-loader"></div>
+    <p>Chargement en Cours...</p>
   </div>
 
+  <ourTeamComponent />
 
 </template>
 
@@ -71,31 +63,26 @@ export default {
   color: white;
 }
 
-.description {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 60px 0;
-}
-
-.description h1,
-.description p {
-  width: 60%;
-}
-
-span {
-  color: #94e8b4;
-}
-
 .custom-loader {
-  width: 50px;
-  height: 50px;
+  justify-self: center;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: conic-gradient(#0000 10%, #94e8b4);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: s3 1s infinite linear;
+}
+
+.routerLink {
+  text-decoration: none;
+}
+
+.loader {
+  display: grid;
+  justify-content: center;
+  height: 50vh;
+  text-align: center;
+  margin: 120px 0;
 }
 
 @keyframes s3 {
@@ -108,5 +95,6 @@ span {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 120px;
 }
 </style>
