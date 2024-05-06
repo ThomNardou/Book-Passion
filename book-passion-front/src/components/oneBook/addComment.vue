@@ -1,23 +1,56 @@
 <script setup>
 import { AnFilledStar } from "@kalimahapps/vue-icons";
-let nbrNote = 0;
+let overStarSelected = 0;
+let starSelected = 0;
+
+function starClicked(index)
+{
+    starSelected = index;
+}
+function mouseleaveStar()
+{
+    overStarSelected = 0
+    changeStarColor()
+}
+function updateSelect(index)
+{
+    overStarSelected = index;
+    changeStarColor()
+}
+function changeStarColor()
+{
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star, index) => {
+
+        if (index < overStarSelected) {
+            star.style.color = "yellow";
+        } else {
+            if (index < starSelected)
+            {
+                star.style.color = "yellow";
+            } else {
+                star.style.color = "";
+            }
+        }
+    });
+}
 </script>
 <template>
     <div class="addComment">
         <div class="input">
-            <p id="commentTitle">Titre du commentaire :</p>
-            <input id="commentTitleInput">
+            <label for="Title" id="commentTitle">Titre du commentaire :</label>
+            <input type="text" id="commentTitleInput">
             <p id="commentNote">Note :</p>
-            <p id="commentNoteInput"><span :class="index <= 0 ? 'colorYellow' : ''" v-for="index in 5" :key="index" class="star"><AnFilledStar /></span></p>
-            <p id="commentComment">Commentaire :</p>
-            <input id="commentCommentInput">
+            <p id="commentNoteInput"><AnFilledStar class="star" v-for="index in 5" :key="index" @mouseover="updateSelect(index)" @mouseleave="mouseleaveStar()" @click="starClicked(index)"/></p>
+            <label for="comment" id="commentComment">Commentaire :</label>
+            <input id="commentCommentInput" type="text">
             <button>Envoyer</button>
         </div>
     </div>
 </template>
 <style scoped>
-.star:hover {
-    background-color: yellow;
+.colorYellow {
+    color: yellow;
 }
 button {
     height: 50%;
@@ -30,7 +63,7 @@ input, button {
     display: flex;
     justify-content: center;
 }
-.input>p, .input>input, .input>button {
+.input>p, .input>input, .input>button, .input>label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,21 +99,22 @@ button {
 }
 
 input {
-    border-radius: 10%;
+    border-radius: 10px;
+    outline: none;
 }
 
 * {
     color: white;
+    font-family: kanit;
 }
 
-p {
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: black;
+p, label {
+    color: black;
 }
 
 .addComment {
     background-color: rgb(128, 201, 156);
-    border-radius: 25% 25% 0% 0% / 25% 25% 0% 0%;
+    border-radius: 30px 30px 0 0;
     width: 50%;
 }
 
@@ -98,7 +132,6 @@ button {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   height: 40px;
