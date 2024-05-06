@@ -25,7 +25,7 @@ footer {
     justify-content: space-between;
     font-family: kanit;
     color: white;
-    margin-top: 120px;
+    /* margin-top: 120px; */
 }
 
 .center {

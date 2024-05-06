@@ -2,6 +2,8 @@ import express from "express";
 import { success } from "../helper.mjs";
 import { Book } from "../../db/sequelize.mjs";
 import { auth } from "../../auth/auth.mjs";
+import { Category } from "../../db/sequelize.mjs";
+import { User } from "../../db/sequelize.mjs";
 
 const idBooksRooter = express();
 
@@ -83,7 +85,20 @@ const idBooksRooter = express();
  */
 idBooksRooter.get("/:id", auth,(req, res) => {
   // Chercher un livre par son id
-  Book.findByPk(req.params.id).then((book) => {
+  Book.findByPk(req.params.id, {
+    include: [
+      {
+        model: Category,
+        required: true,
+        attributes: ["id", "name"],
+      },
+      {
+        model: User,
+        required: true,
+        attributes: ["username"],
+      }
+    ],
+  }).then((book) => {
     // Si le livre n'existe pas
     if (book === null) {
       // Retourne un message d'erreur (404)

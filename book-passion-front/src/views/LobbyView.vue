@@ -33,7 +33,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
+    }, 
   },
 };
 </script>
@@ -44,7 +44,7 @@ export default {
   <webSiteDesription />
 
   <div v-if="lastBooks.length > 0" class="bookContainer">
-    <RouterLink v-for="book in lastBooks" :key="book.id" class="routerLink">
+    <RouterLink v-for="book in lastBooks" :key="book.id" :to="{name: 'book', params: {id: book.id}}" class="routerLink">
       <bookCompent  :userName="book.t_user.username" :authorname="book.writer" :title="book.title" :imageSrc="book.coverImage" :createdAt="book.createdAt"/>
     </RouterLink>
   </div>
