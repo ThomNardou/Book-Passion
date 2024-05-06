@@ -37,7 +37,7 @@ export default {
   padding: 40px;
   background-size: cover;
   background-position: center;
-  margin: 30px 20px;
+  margin: 20px;
 }
 
 .bookCard:hover h2, .bookCard:hover p {
