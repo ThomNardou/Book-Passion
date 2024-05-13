@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "../helper.mjs";
 import { Category } from "../../db/sequelize.mjs";
 import { Book } from "../../db/sequelize.mjs";
+import { User } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
 import { auth } from "../../auth/auth.mjs";
 
@@ -92,7 +93,7 @@ const categoryBooksRooter = express();
  *                     example: Fantastic
  *
  */
-categoryBooksRooter.get("/:id/books", auth, (req, res) => {
+categoryBooksRooter.get("/:id/books", (req, res) => {
   const bookCategory = req.params.id;
 
   Category.findByPk(bookCategory)
@@ -106,15 +107,21 @@ categoryBooksRooter.get("/:id/books", auth, (req, res) => {
 
       // Cherche les livres avec la catégorie demandée et compte le nombre de résultats
       Book.findAndCountAll({
-        include: {
-          model: Category,
-          as: "Categ",
-          required: true,
-          attributes: ["id", "name"],
-          where: {
-            id: { [Op.eq]: bookCategory },
+        include: [
+          {
+            model: Category,
+            required: true,
+            attributes: ["id", "name"],
+            where: {
+              id: { [Op.eq]: bookCategory },
+            },
           },
-        },
+          {
+            model: User,  
+            required: true,
+            attributes: ["username"],
+          }
+        ],
       })
         .then((categorybook) => {
           // Si aucun livre n'est trouvé

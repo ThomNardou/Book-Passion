@@ -35,7 +35,7 @@ const allCategoryRooter = express();
  *                     example: Fantastic
  *
  */
-allCategoryRooter.get("/", auth, (req, res) => {
+allCategoryRooter.get("/", (req, res) => {
   if (req.query.order) {
     // Cherche toutes le catégories
     Category.findAndCountAll({

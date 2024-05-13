@@ -101,6 +101,7 @@ button {
 input {
     border-radius: 10px;
     outline: none;
+    color: black;
 }
 
 * {

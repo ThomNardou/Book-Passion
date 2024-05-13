@@ -59,7 +59,7 @@ import { onMounted, ref } from 'vue';
 
 let comments = [{ id: 1, name: "Kyle", title: "Cool", note: 4, comment: "shfbwbfebafbeafbheafha" }, { id: 2, name: "Khaille", title: "Colo", note: 4, comment: "shfbwbfebafbeafbheafha" }]
 
-const props = defineProps(["id"]);
+const props = defineProps(["id", "userId"]);
 let resultAPI = ref({});
 
 onMounted(() => {

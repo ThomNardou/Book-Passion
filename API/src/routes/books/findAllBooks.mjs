@@ -78,7 +78,7 @@ const allBooksRooter = express();
  *                     example: 1
  *
  */
-allBooksRooter.get("/", auth, (req, res) => {
+allBooksRooter.get("/", (req, res) => {
   let limitReq = 5;
 
   if (req.query.limit) {
@@ -109,7 +109,7 @@ allBooksRooter.get("/", auth, (req, res) => {
           {
             model: User,
             required: true,
-            attributes: ["username"],
+            attributes: ["id", "username"],
           }
         ],
       })
@@ -149,7 +149,7 @@ allBooksRooter.get("/", auth, (req, res) => {
           {
             model: User,
             required: true,
-            attributes: ["username"],
+            attributes: ["id","username"],
           }
         ],
       })
@@ -185,7 +185,7 @@ allBooksRooter.get("/", auth, (req, res) => {
       {
         model: User,
         required: true,
-        attributes: ["username"],
+        attributes: ["id","username"],
       }
     ],
   })
