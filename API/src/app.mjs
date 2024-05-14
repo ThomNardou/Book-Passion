@@ -13,7 +13,7 @@ import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { idCategoryRooter } from "./routes/category/findCategoryById.mjs";
 import { createCommentRooter } from "./routes/comments/createComment.mjs";
-import { allCommentsRouters } from "./routes/comments/findAllComments.mjs";
+import { allCommentsRouters } from "./routes/comments/findBookComments.mjs";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 import { SwaggerTheme } from "swagger-themes";
@@ -107,7 +107,7 @@ sequelize
   // If it could'nt connect
   .catch((error) => console.error("Unable to connect to DB"));
 
-// initDB(); //you need to be connected to the database else "error", will delete the data
+initDB(); //you need to be connected to the database else "error", will delete the data
 
 //Error 404 if the URL don't exist
 app.use(({ res }) => {

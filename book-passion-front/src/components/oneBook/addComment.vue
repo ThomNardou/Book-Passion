@@ -5,8 +5,10 @@ import axios from "axios";
 let overStarSelected = 0;
 let starSelected = 0;
 import { decodeToken } from "@/utils/decodeTokenTool.mjs";
+import { defineEmits } from "vue";
 
 const props = defineProps(["bookId"])
+const emit = defineEmits(["update-rate"])
 
 function starClicked(index) {
     starSelected = index;
@@ -45,8 +47,6 @@ function postComment() {
 
     const utilisateurId = decodeToken(localStorage.token).userId
 
-    console.log(localStorage.token)
-
     axios.post(APICall, 
     {
         title: commentTitle,
@@ -63,7 +63,8 @@ function postComment() {
 
     })
         .then((result) => {
-            console.log(result)
+            emit('update-rate', commentRate)
+            location.reload()
         })
         .catch((err) => {
             console.log(err);

@@ -18,7 +18,7 @@ import { defineProps } from 'vue';
                 <p><span class="data">Auteur : </span>{{ resultAPI.writer }}</p>
                 <p><span class="data">Éditeur : </span>{{ resultAPI.editor }}</p>
                 <p><span class="data">Année d'édition : </span>{{ resultAPI.releaseYear }}</p>
-                <p><span :class="index <= resultAPI.rating ? 'colorYellow' : ''" v-for="index in 5" :key="index">
+                <p><span :class="index <= resultAPI.avgRating ? 'colorYellow' : ''" v-for="index in 5" :key="index">
                         <AnFilledStar />
                     </span></p>
             </div>
@@ -26,15 +26,23 @@ import { defineProps } from 'vue';
         <br><br><br>
         <h2 class="part-heading">Synopsis</h2>
         <p class="part">{{ resultAPI.excerpt }}</p>
+
         <h2 class="part-heading" id="part-heading-comment">Commentaires</h2>
 
-        <div v-for="comment in comments" :key="comment.id">
-            <div class="comment">
+        <div v-if="hasCommentError" class="error">
+            <p>Une erreur c'est produit lors de la récupération de commentaire merci de réessayer plus tard</p>
+        </div>
 
+        <div v-else-if="commentsList.length <= 0" class="noComments">
+            <p>Soyez le premier commentaire de ce livre 😜</p>
+        </div>
+
+        <div v-else v-for="comment in commentsList" :key="comment.id">
+            <div class="comment">
                 <div class="userPart">
-                    <p class="comment_name">{{ comment.name }}</p>
+                    <p class="comment_name">{{ comment.t_user.username }}</p>
                     <p class="comment_note">
-                        <span :class="index <= comment.note ? 'colorYellow' : ''" v-for="index in 5" :key="index">
+                        <span :class="index <= comment.rate ? 'colorYellow' : ''" v-for="index in 5" :key="index">
                             <AnFilledStar />
                         </span>
                     </p>
@@ -49,7 +57,7 @@ import { defineProps } from 'vue';
         </div>
 
         <div class="addComment">
-            <addComment :bookId="props.id" />
+            <addComment :bookId="props.id" @update-rate="updateRate" />
         </div>
     </div>
 
@@ -65,7 +73,11 @@ import { onMounted, ref } from 'vue';
 let comments = [{ id: 1, name: "Kyle", title: "Cool", note: 4, comment: "shfbwbfebafbeafbheafha" }, { id: 2, name: "Khaille", title: "Colo", note: 4, comment: "shfbwbfebafbeafbheafha" }]
 
 let resultAPI = ref({});
-let commentsList = ref([]) 
+let commentsList = ref([])
+let hasCommentError = ref(false)
+let totalRate = 0;
+let countRate = 0;
+
 const props = defineProps(["id"]);
 
 onMounted(() => {
@@ -74,6 +86,7 @@ onMounted(() => {
         location.href = '/'
     }
     getBook();
+    getComments();
 })
 
 const getBook = async () => {
@@ -85,7 +98,7 @@ const getBook = async () => {
                     "Bearer " + localStorage.token,
             },
         })
-        .then((result) => {
+        .then(async (result) => {
             resultAPI.value = result.data.data;
         })
         .catch((err) => {
@@ -95,7 +108,43 @@ const getBook = async () => {
 
 const getComments = async () => {
     axios
-    .get("http://localhost:3000/api/comments?order=createdAt")
+        .get(`http://localhost:3000/api/comments/${props.id}?order=createdAt`)
+        .then(async (res) => {
+            commentsList.value = res.data.data.rows;
+
+            commentsList.value.forEach(element => {
+                totalRate += element.rate;
+            });
+
+            countRate = commentsList.value.length;
+            hasCommentError.value = false;
+        })
+        .catch((err) => {
+            console.log(err);
+            hasCommentError.value = true;
+        });
+
+}
+
+const updateRate = (rate) => {
+    totalRate += rate;
+    countRate += 1;
+
+    axios
+        .put(`http://localhost:3000/api/books/${props.id}`, {
+            avgRating: Math.ceil(totalRate / countRate)
+        }, {
+            headers: {
+                Authorization:
+                    "Bearer " + localStorage.token,
+            },
+        })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 
@@ -222,5 +271,14 @@ hr {
     position: sticky;
     bottom: 0;
     left: 25%;
+}
+
+.noComments,
+.error {
+    text-align: center;
+}
+
+.error {
+    color: red
 }
 </style>

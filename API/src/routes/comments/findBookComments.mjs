@@ -1,15 +1,33 @@
 import express from "express";
 import { success } from "../helper.mjs";
 import { Comments } from "../../db/sequelize.mjs";
+import { User } from "../../db/sequelize.mjs";
+import { Book } from "../../db/sequelize.mjs";
+import { Op } from "sequelize";
 import { auth } from "../../auth/auth.mjs";
 
 const allCommentsRouters = express();
 
-allCommentsRouters.get("/", (req, res) => {
+allCommentsRouters.get("/:bookId", (req, res) => {
   if (req.query.order) {
     // Cherche toutes le catégories
     Comments.findAndCountAll({
-      order: [[req.query.order, "DESC"]]
+      order: [[req.query.order, "DESC"]],
+      include: [
+        {
+          model: Book,
+          required: true,
+          attributes: ["id", "title"],
+          where: {
+            id: { [Op.eq]: req.params.bookId },
+          },
+        },
+        {
+          model: User,  
+          required: true,
+          attributes: ["id", "username"],
+        }
+      ]
     })
       .then((comments) => {
 
