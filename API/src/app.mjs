@@ -12,6 +12,8 @@ import { createCategoryRouter } from "./routes/category/createCategory.mjs";
 import { deleteCategoryRouter } from "./routes/category/deleteCategory.mjs";
 import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { idCategoryRooter } from "./routes/category/findCategoryById.mjs";
+import { createCommentRooter } from "./routes/comments/createComment.mjs";
+import { allCommentsRouters } from "./routes/comments/findAllComments.mjs";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 import { SwaggerTheme } from "swagger-themes";
@@ -88,6 +90,11 @@ app.use("/api/categories", putCategoryRooter);
 
 // define the root for the login
 app.use("/api/login", loginRouter);
+
+///////////////////////////////////////////////////////////// COMMENT ROOTERS /////////////////////////////////////////////////////////////
+
+app.use("/api/comments", createCommentRooter)
+app.use("/api/comments", allCommentsRouters)
 
 //database
 sequelize

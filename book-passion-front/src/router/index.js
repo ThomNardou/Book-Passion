@@ -13,7 +13,7 @@ const router = createRouter({
       component: LobbyView,
     },
     {
-      path: "/book/:id/:userId",
+      path: "/book/:id",
       name: "book",
       component: OneBookView,
       props: true,

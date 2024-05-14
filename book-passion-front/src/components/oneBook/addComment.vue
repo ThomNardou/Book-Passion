@@ -1,38 +1,74 @@
 <script setup>
 import { AnFilledStar } from "@kalimahapps/vue-icons";
+import { onMounted } from "vue";
+import axios from "axios";
 let overStarSelected = 0;
 let starSelected = 0;
+import { decodeToken } from "@/utils/decodeTokenTool.mjs";
 
-function starClicked(index)
-{
+const props = defineProps(["bookId"])
+
+function starClicked(index) {
     starSelected = index;
 }
-function mouseleaveStar()
-{
-    overStarSelected = 0
-    changeStarColor()
-}
-function updateSelect(index)
-{
+function updateSelect(index) {
     overStarSelected = index;
     changeStarColor()
 }
-function changeStarColor()
-{
+function changeStarColor() {
     const stars = document.querySelectorAll(".star");
     stars.forEach((star, index) => {
 
         if (index < overStarSelected) {
             star.style.color = "yellow";
         } else {
-            if (index < starSelected)
-            {
+            if (index < starSelected) {
                 star.style.color = "yellow";
             } else {
                 star.style.color = "";
             }
         }
     });
+}
+
+function postComment() {
+    const commentTitle = document.getElementById("commentTitleInput").value;
+    const commentContent = document.getElementById("commentCommentInput").value;
+    const commentRate = starSelected;
+
+
+    if (commentTitle == '') return;
+    if (commentContent == '') return;
+    if (commentRate == 0) return;
+
+    const APICall = 'http://localhost:3000/api/comments'
+
+    const utilisateurId = decodeToken(localStorage.token).userId
+
+    console.log(localStorage.token)
+
+    axios.post(APICall, 
+    {
+        title: commentTitle,
+        comment: commentContent,
+        rate: commentRate,
+        fk_user: utilisateurId,
+        fk_book: parseInt(props.bookId),
+    },
+    {
+        headers: {
+            Authorization:
+                "Bearer " + localStorage.token,
+        }
+
+    })
+        .then((result) => {
+            console.log(result)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
 }
 </script>
 <template>
@@ -41,10 +77,13 @@ function changeStarColor()
             <label for="Title" id="commentTitle">Titre du commentaire :</label>
             <input type="text" id="commentTitleInput">
             <p id="commentNote">Note :</p>
-            <p id="commentNoteInput"><AnFilledStar class="star" v-for="index in 5" :key="index" @mouseover="updateSelect(index)" @mouseleave="mouseleaveStar()" @click="starClicked(index)"/></p>
+            <p id="commentNoteInput">
+                <AnFilledStar class="star" v-for="index in 5" :key="index" @mouseover="updateSelect(index)"
+                    @click="starClicked(index)" />
+            </p>
             <label for="comment" id="commentComment">Commentaire :</label>
             <input id="commentCommentInput" type="text">
-            <button>Envoyer</button>
+            <button @click="postComment()">Envoyer</button>
         </div>
     </div>
 </template>
@@ -52,42 +91,56 @@ function changeStarColor()
 .colorYellow {
     color: yellow;
 }
+
 button {
     height: 50%;
 }
-input, button {
+
+input,
+button {
     width: 50%;
     margin-left: 25%;
 }
+
 .input>input {
     display: flex;
     justify-content: center;
 }
-.input>p, .input>input, .input>button, .input>label {
+
+.input>p,
+.input>input,
+.input>button,
+.input>label {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 button {
     grid-row: 3;
     grid-column: 2;
 }
-#commentCommentInput{
+
+#commentCommentInput {
     grid-row: 4;
     grid-column: 1;
 }
+
 #commentComment {
     grid-row: 3;
     grid-column: 1;
 }
+
 #commentNoteInput {
     grid-row: 2;
     grid-column: 2;
 }
+
 #commentNote {
     grid-row: 1;
     grid-column: 2;
 }
+
 #commentTitleInput {
     grid-row: 2;
     grid-column: 1;
@@ -109,7 +162,8 @@ input {
     font-family: kanit;
 }
 
-p, label {
+p,
+label {
     color: black;
 }
 
@@ -123,37 +177,38 @@ p, label {
     display: grid;
     grid-template: repeat(4, 1fr) 25px / 50% 50%;
 }
+
 /*Snippet*/
 
 button {
-  background-color: #EA4C89;
-  border-radius: 8px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 500;
-  height: 40px;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  outline: none;
-  padding: 10px 16px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: color 100ms;
-  vertical-align: baseline;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    background-color: #EA4C89;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 button:hover,
 button:focus {
-  background-color: #F082AC;
+    background-color: #F082AC;
 }
 
 button {

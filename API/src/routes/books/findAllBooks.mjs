@@ -138,7 +138,7 @@ allBooksRooter.get("/", (req, res) => {
     // Sinon, recherche les livres dont le titre contient le terme de la recherche
     return (
       Book.findAndCountAll({
-        order: [req.query.order],
+        order: [[req.query.order, "DESC"]],
         limit: limitReq,
         include: [
           {

@@ -3,19 +3,20 @@ import bookCompent from '../Lobby/bookCompent.vue';
 </script>
 
 <script>
-
+import { decodeToken } from '@/utils/decodeTokenTool.mjs'
 export default {
     props: {
         Books: Object
     },
     data() {
         return {
-            tokenExist: false
+            tokenExist: false,
+            token: ''
         }
     },
     mounted() {
         
-        localStorage.getItem('token') ? this.tokenExist = true : this.tokenExist = false
+        localStorage.getItem('token') ? (this.tokenExist = true, this.token = decodeToken(localStorage.token)) : this.tokenExist = false;
     },
     methods: {
 
@@ -38,7 +39,7 @@ export default {
                     :imageSrc="book.coverImage" :createdAt="book.createdAt" />
             </div>
 
-            <RouterLink v-else v-for="book in Books.books" :to="{ name: 'book', params: { id: book.id, userId: '5' } }"
+            <RouterLink v-else v-for="book in Books.books" :to="{ name: 'book', params: { id: book.id } }"
                 class="routerLink">
 
                 <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"

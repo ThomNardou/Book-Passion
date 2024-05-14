@@ -18,11 +18,12 @@ export default {
         status: Number
       },
       tokenExist: false,
+      token: ''
     };
   },
   mounted() {
     localStorage.getItem('token') ? (this.tokenExist = true, this.token = decodeToken(localStorage.token)) : this.tokenExist = false;
-    console.log(this.token)
+    
     this.getAllbooks();
   },
   methods: {
@@ -51,7 +52,7 @@ export default {
 
     <div v-for="book in lastBooks" :key="book.id">
       <RouterLink v-if="tokenExist"
-        :to="{ name: 'book', params: { id: book.id, userId: token.userId } }" class="routerLink">
+        :to="{ name: 'book', params: { id: book.id } }" class="routerLink">
   
         <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
           :imageSrc="book.coverImage" :createdAt="book.createdAt" />

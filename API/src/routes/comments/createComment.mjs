@@ -1,22 +1,22 @@
 import express from "express";
 import { success } from "../helper.mjs";
-import { Book } from "../../db/sequelize.mjs";
+import { Comments } from '../../db/sequelize.mjs';
 import { ValidationError } from "sequelize";
 import { auth } from "../../auth/auth.mjs";
 import jwt from 'jsonwebtoken'
 
 const createCommentRooter = express();
 
-createBooksRouter.post("/", auth,(req, res) => {
+createCommentRooter.post("/", auth,(req, res) => {
 
     console.log(jwt.decode(req.headers.authorization));
 
-  // Création d'un livre avec les données reçues
-  Book.create(req.body)
-    .then((createdBook) => {
+  // Création d'un commentaire avec les données reçues
+  Comments.create(req.body)
+    .then((createdComment) => {
       // Renvoie un message de succès
-      const message = `The books ${createdBook.title} has indeed been created !`;
-      res.json(success(message, createdBook));
+      const message = `The Comment ${createdComment.title} has indeed been posted !`;
+      res.json(success(message, createdComment));
     })
     // Si une erreur est survenue lors de la création du livre
     .catch((error) => {
@@ -26,7 +26,7 @@ createBooksRouter.post("/", auth,(req, res) => {
       }
       
       // Renvoie un message d'erreur (500)
-      const message = "The book could not be added. Please try again shortly.";
+      const message = "The comment could not be posted. Please try again shortly.";
       res.status(500).json({ message, data: error });
     });
 });

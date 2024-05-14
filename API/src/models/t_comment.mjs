@@ -5,7 +5,18 @@ const commentModel = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "The comment title cannot be empty.",
+        },
+        notNull: {
+          msg: "The comment title is a mandatory property.",
+        },
+      }
+    },
     comment: {
       type: DataTypes.STRING,
       allowNull: false,

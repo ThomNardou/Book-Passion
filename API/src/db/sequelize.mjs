@@ -52,7 +52,7 @@ Book.belongsTo(Category, {
 // importation des données
 let initDB = () => {
   return sequelize
-    .sync({ force: false })
+    .sync({ force: true })
     .then( async () => {
       // const temp = importBooks();
       // importCategories();

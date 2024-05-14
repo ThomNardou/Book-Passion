@@ -1,6 +1,11 @@
 <script>
 import addComment from '@/components/oneBook/addComment.vue';
 import { AnFilledStar } from "@kalimahapps/vue-icons";
+import { onMounted } from 'vue';
+import { defineProps } from 'vue';
+
+
+
 </script>
 <template>
     <div v-if="Object.keys(resultAPI).length > 0">
@@ -44,7 +49,7 @@ import { AnFilledStar } from "@kalimahapps/vue-icons";
         </div>
 
         <div class="addComment">
-            <addComment />
+            <addComment :bookId="props.id" />
         </div>
     </div>
 
@@ -59,11 +64,15 @@ import { onMounted, ref } from 'vue';
 
 let comments = [{ id: 1, name: "Kyle", title: "Cool", note: 4, comment: "shfbwbfebafbeafbheafha" }, { id: 2, name: "Khaille", title: "Colo", note: 4, comment: "shfbwbfebafbeafbheafha" }]
 
-const props = defineProps(["id", "userId"]);
 let resultAPI = ref({});
+let commentsList = ref([]) 
+const props = defineProps(["id"]);
 
 onMounted(() => {
-    console.log(props)
+    if (!localStorage.getItem('token')) {
+        alert("Vous n'avez pas accès à cette resource merci de bien vouloir vous authentifier")
+        location.href = '/'
+    }
     getBook();
 })
 
@@ -73,7 +82,7 @@ const getBook = async () => {
         .get(`http://localhost:3000/api/books/${props.id}`, {
             headers: {
                 Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcxMzg3NTA5OSwiZXhwIjoxNzQ1NDMyNjk5fQ.kZlgeCnH1RHoFw1N4mhnU8BLDYY1TNsa4onihyRymoI",
+                    "Bearer " + localStorage.token,
             },
         })
         .then((result) => {
@@ -82,6 +91,11 @@ const getBook = async () => {
         .catch((err) => {
             console.log(err);
         });
+}
+
+const getComments = async () => {
+    axios
+    .get("http://localhost:3000/api/comments?order=createdAt")
 }
 
 
@@ -168,7 +182,8 @@ hr {
     margin-left: 10%;
 }
 
-.userPart, .commentPart {
+.userPart,
+.commentPart {
     width: 50%;
 }
 
