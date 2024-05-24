@@ -17,20 +17,23 @@
 
 <script>
 export default {
+    data() {
+        return {
+            title: "",
+            category: "",
+            resume: "",
+            extrait: "",
+            author: "",
+            editor: "",
+            coverImage: "",
+            releasedYear: "",
+            nbrPage: ""
+        }
+    },
     mounted() {
-        let title, category, resume, extrait, author, editor, coverImage, releasedYear, nbrPage
     },
     methods: {
         checkInput() {
-            title = document.getElementById("title").value;
-            category = document.getElementById("category").value;
-            resume = document.getElementById("resume").value;
-            extrait = document.getElementById("extrait").value;
-            author = document.getElementById("author").value;
-            editor = document.getElementById("editor").value;
-            coverImage = document.getElementById("coverImage").value;
-            releasedYear = document.getElementById("releasedYear").value;
-            nbrPage = document.getElementById("nbrPage").value;
 
         }
     }
@@ -40,44 +43,57 @@ export default {
     <div class="container">
         <h1>Ajouter un livre</h1>
         <form> <!--TODO Should i put the form in a global component? not now-->
-            <div> <!--TODO v-model??-->
+            <div> 
+
                 <div class="title">
                     <label for="title">Titre du livre<span class="star">*</span></label>
-                    <input type="text" name="title" id="title" required>
+                    <input type="text" v-model="title"  name="title" id="title" required>
                 </div>
+
                 <div class="category">
                     <label for="category">Catégorie<span class="star">*</span></label>
-                    <!--TODO select the category from the database (TODO later)-->
-                    <input type="text" name="category" id="category" required />
+                    
+                    <select>
+                        <option disabled selected>-- Categorie --</option>
+                    </select>
+
                 </div>
+
                 <div class="resume">
                     <label for="resume">Résumé<span class="star">*</span></label>
                     <input type="text" name="resume" id="resume" required />
                 </div>
+
                 <div class="extrait">
                     <label for="extrait">Extrait<span class="star">*</span></label>
                     <input type="text" name="extrait" id="extrait" required />
                 </div>
+
                 <div class="author">
                     <label for="author">Auteur<span class="star">*</span></label>
                     <input type="text" name="author" id="author" required />
                 </div>
+
                 <div class="editor">
                     <label for="editor">Éditeur<span class="star">*</span></label>
                     <input type="text" name="editor" id="editor" required />
                 </div>
+
                 <div class="coverImage">
                     <label for="coverImage">Image de couverture<span class="star">*</span></label>
                     <input type="text" name="coverImage" id="coverImage" required />
                 </div>
+
                 <div class="releasedYear">
                     <label for="releasedYear">Année d'édition<span class="star">*</span></label>
                     <input type="text" name="releasedYear" id="releasedYear" required />
                 </div>
+
                 <div class="nbrPage">
                     <label for="nbrPage">Nombre de pages<span class="star">*</span></label>
                     <input type="number" name="nbrPage" id="nbrPage" required />
                 </div>
+
                 <button @submit="checkInput()">Ajouter</button>
             </div>
         </form>
