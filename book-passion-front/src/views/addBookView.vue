@@ -13,6 +13,10 @@ export default {
         }
     },
     mounted() {
+        if (!localStorage.getItem('token')) {
+            alert("Vous n'avez pas accès à cette resource merci de bien vouloir vous authentifier")
+            location.href = '/'
+        }
         this.getCategories()
     },
     methods: {

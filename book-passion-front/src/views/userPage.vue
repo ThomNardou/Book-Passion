@@ -1,14 +1,51 @@
 <script setup>
 import userBook from "@/components/userPage/userBook.vue"
+import { onMounted, ref } from "vue";
+import { decodeToken } from "@/utils/decodeTokenTool.mjs";
+import axios from "axios";
 
-//TODO - fetch the book of the user
-let usersBook = [{}, {}];
+
+let usersBook = ref([]);
+let haveError = ref(false);
+
+onMounted(() => {
+    if (!localStorage.getItem('token')) {
+        alert("Vous n'avez pas accès à cette resource merci de bien vouloir vous authentifier")
+        location.href = '/'
+    }
+    getUserBooks()
+})
+
+async function getUserBooks() {
+    axios.get(`http://localhost:3000/api/user/${decodeToken(localStorage.token).userId}/books`)
+    .then((res) => {
+        usersBook.value = res.data.data.rows;
+        console.log(usersBook.value)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
 </script>
 <template>
-    <userBook v-for="book in usersBook" :book="book"></userBook>
+    <div class="container" v-if="!haveError || userBook.length > 0">
+        <userBook class="book" v-for="book in usersBook" :book="book"></userBook>
+    </div>
 </template>
 <style scoped>
 p {
     margin-top: 120px;
+}
+
+.container {
+    background-image: url('/teamWallpaper.webp');
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+}
+
+.book {
+    /* backdrop-filter: blur(50px); */
+    margin: 20px 0;
 }
 </style>
