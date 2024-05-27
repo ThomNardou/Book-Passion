@@ -1,4 +1,6 @@
 <script setup>
+import { AkEdit, AnOutlinedDelete  } from "@kalimahapps/vue-icons";
+
 const props = defineProps({
     book: {
         type: Object,
@@ -18,12 +20,22 @@ const props = defineProps({
             <p><span class="blue">Année d'édition</span> : {{ book.releasedYear }}</p>
         </div>
         <div class="updateBook">
-            <img alt="edit book" src="/edit.png" height="100px">
-            <img alt="delete book" id="delete" src="/trash.png" height="100px">
+            <AkEdit class="icon"/>
+            <AnOutlinedDelete class="icon" />
         </div>
     </div>
 </template>
 <style scoped>
+* {
+    font-family: kanit;
+}
+
+.icon {
+    color: white;
+    font-size: 50px;
+    margin: 0 10px;
+}
+
 #delete {
     margin-left: 10%;
 }
@@ -41,6 +53,7 @@ const props = defineProps({
     align-items: center;
     background-color: #D9D9D925;
     border: solid black 1px;
+    margin-top: 200px;
 }
 
 p,

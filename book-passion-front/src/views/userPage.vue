@@ -5,7 +5,6 @@ import userBook from "@/components/userPage/userBook.vue"
 let usersBook = [{}, {}];
 </script>
 <template>
-    <p></p>
     <userBook v-for="book in usersBook" :book="book"></userBook>
 </template>
 <style scoped>
