@@ -82,7 +82,7 @@ const props = defineProps(["id"]);
 
 onMounted(() => {
     if (!localStorage.getItem('token')) {
-        alert("Vous n'avez pas accès à cette resource merci de bien vouloir vous authentifier")
+        alert("Vous n'avez pas accès à cette ressource, merci de bien vouloir vous authentifier")
         location.href = '/'
     }
     getBook();
