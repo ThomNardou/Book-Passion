@@ -1,7 +1,7 @@
 <script setup>
 import LobbyHeader from "@/components/Lobby/LobbyHeader.vue";
-import bookCompent from "@/components/Lobby/bookCompent.vue";
-import webSiteDesription from '@/components/Lobby/webSiteDescription.vue';
+import bookComponent from "@/components/Lobby/bookCompent.vue";
+import webSiteDescription from '@/components/Lobby/webSiteDescription.vue';
 import ourTeamComponent from '@/components/Lobby/ourTeamComponent.vue';
 import { RouterLink } from "vue-router";
 import axios from "axios";
@@ -44,7 +44,7 @@ export default {
 <template>
 
   <LobbyHeader />
-  <webSiteDesription />
+  <webSiteDescription />
 
   <h1 class="lastBooks">5 last <span>Book</span></h1>
 
@@ -54,13 +54,13 @@ export default {
       <RouterLink v-if="tokenExist"
         :to="{ name: 'book', params: { id: book.id } }" class="routerLink">
   
-        <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
+        <bookComponent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
           :imageSrc="book.coverImage" :createdAt="book.createdAt" />
   
       </RouterLink>
   
       <div v-else class="routerLink">
-        <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
+        <bookComponent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
           :imageSrc="book.coverImage" :createdAt="book.createdAt" />
       </div>
 
