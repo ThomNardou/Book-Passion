@@ -33,7 +33,7 @@ async function deleteBook(bookId) {
     <div class="book" v-if="!haveError && book">
         <img alt="book cover image" :src="book.coverImage" id="coverImage">
         <div class="data">
-            <h2>{{ book.name }}</h2>
+            <h2>{{ book.title }}</h2>
             <p><span class="blue">Catégorie</span> : {{ book.t_category.name }}</p>
             <p><span class="blue">Nombre de pages</span> : {{ book.numberPages }}</p>
             <p><span class="blue">Auteur</span> : {{ book.writer }}</p>
