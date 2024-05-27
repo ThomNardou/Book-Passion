@@ -1,100 +1,120 @@
 <script setup>
-// let title, category, resume, extrait, author, editor, coverImage, releasedYear, nbrPage
-
-// function checkInput() {
-//     title = document.getElementById("title").value;
-//     category = document.getElementById("category").value;
-//     resume = document.getElementById("resume").value;
-//     extrait = document.getElementById("extrait").value;
-//     author = document.getElementById("author").value;
-//     editor = document.getElementById("editor").value;
-//     coverImage = document.getElementById("coverImage").value;
-//     releasedYear = document.getElementById("releasedYear").value;
-//     nbrPage = document.getElementById("nbrPage").value;
-//     alert(`${title} ${category} ${resume} $`)
-// }
+import axios from 'axios';
+import { decodeToken } from '@/utils/decodeTokenTool.mjs';
 </script>
 
 <script>
 export default {
     data() {
         return {
-            title: "",
-            category: "",
-            resume: "",
-            extrait: "",
-            author: "",
-            editor: "",
-            coverImage: "",
-            releasedYear: "",
-            nbrPage: ""
+            newBook: {},
+            haveError: false,
+            categories: []
         }
     },
     mounted() {
+        this.getCategories()
     },
     methods: {
-        checkInput() {
-
+        async getCategories() {
+            await axios.get('http://localhost:3000/api/categories', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.token
+                }
+            })
+                .then((res) => {
+                    this.categories = res.data.data.rows;
+                    this.haveError = false;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.haveError = true;
+                })
+        },
+        async addBook() {
+            await axios.post('http://localhost:3000/api/books', {
+                title: this.newBook.title,
+                numberPages: this.newBook.nbrPage,
+                excerpt: this.newBook.extrait,
+                summary: this.newBook.resume,
+                writer: this.newBook.author,
+                editor: this.newBook.editor,
+                releaseYear: this.newBook.releasedYear,
+                avgRating: 0,
+                coverImage: this.newBook.coverImage,
+                fk_user: decodeToken(localStorage.token).userId,
+                fk_category: this.newBook.category
+            },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.token
+                    }
+                })
+                .then((res) => {
+                    console.log(res)
+                })
         }
     }
 }
 </script>
-<template><!--TODO background-image-->
-    <div class="container">
-        <h1>Ajouter un livre</h1>
+<template>
+    <div class="container" v-if="!haveError || categories.length > 0">
         <form> <!--TODO Should i put the form in a global component? not now-->
-            <div> 
+            <h1>Ajouter un livre</h1>
+            <div>
 
                 <div class="title">
                     <label for="title">Titre du livre<span class="star">*</span></label>
-                    <input type="text" v-model="title"  name="title" id="title" required>
+                    <input type="text" v-model="newBook.title" name="title" id="title" required>
                 </div>
 
                 <div class="category">
                     <label for="category">Catégorie<span class="star">*</span></label>
-                    
-                    <select>
+
+                    <select required v-model="newBook.category">
                         <option disabled selected>-- Categorie --</option>
+                        <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                     </select>
 
                 </div>
 
                 <div class="resume">
                     <label for="resume">Résumé<span class="star">*</span></label>
-                    <input type="text" name="resume" id="resume" required />
+                    <input type="text" v-model="newBook.resume" name="resume" id="resume" required />
                 </div>
 
                 <div class="extrait">
                     <label for="extrait">Extrait<span class="star">*</span></label>
-                    <input type="text" name="extrait" id="extrait" required />
+                    <input type="text" v-model="newBook.extrait" name="extrait" id="extrait" required />
                 </div>
 
                 <div class="author">
                     <label for="author">Auteur<span class="star">*</span></label>
-                    <input type="text" name="author" id="author" required />
+                    <input type="text" v-model="newBook.author" name="author" id="author" required />
                 </div>
 
                 <div class="editor">
                     <label for="editor">Éditeur<span class="star">*</span></label>
-                    <input type="text" name="editor" id="editor" required />
+                    <input type="text" v-model="newBook.editor" name="editor" id="editor" required />
                 </div>
 
                 <div class="coverImage">
                     <label for="coverImage">Image de couverture<span class="star">*</span></label>
-                    <input type="text" name="coverImage" id="coverImage" required />
+                    <input type="text" v-model="newBook.coverImage" name="coverImage" id="coverImage" required />
                 </div>
 
                 <div class="releasedYear">
                     <label for="releasedYear">Année d'édition<span class="star">*</span></label>
-                    <input type="text" name="releasedYear" id="releasedYear" required />
+                    <input type="number" v-model="newBook.releasedYear" name="releasedYear" id="releasedYear"
+                        required />
                 </div>
 
                 <div class="nbrPage">
                     <label for="nbrPage">Nombre de pages<span class="star">*</span></label>
-                    <input type="number" name="nbrPage" id="nbrPage" required />
+                    <input type="number" v-model="newBook.nbrPage" name="nbrPage" id="nbrPage" required />
                 </div>
 
-                <button @submit="checkInput()">Ajouter</button>
+                <button @submit.prevent="addBook">Ajouter</button>
             </div>
         </form>
     </div>
@@ -106,13 +126,19 @@ export default {
 }
 
 .container {
-    background-image: url("/addBook.png");
+    background-image: url("/addBookWallPaper.jpeg");
     background-size: cover;
+    height: calc(100vh - 120px);
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
-    padding-top: 120px;
     display: flex;
     justify-content: center;
 }
@@ -139,10 +165,11 @@ label {
 }
 
 form {
-    background-color: rgb(255, 255, 255, 41%);
+    backdrop-filter: blur(50px);
+    border: white 1px solid;
     border-radius: 30px;
     width: 50%;
-    margin-left: 25%;
+    padding: 30px;
 }
 
 form>div {
