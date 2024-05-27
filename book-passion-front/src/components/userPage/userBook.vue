@@ -41,7 +41,7 @@ async function deleteBook(bookId) {
             <p><span class="blue">Année d'édition</span> : {{ book.releaseYear }}</p>
         </div>
         <div class="updateBook">
-            <AkEdit class="icon"/>
+            <router-link :to="{name: 'updateBook', params: { bookId: book.id } }"><AkEdit class="icon"/></router-link>
             <AnOutlinedDelete class="icon" @click="deleteBook(book.id)"/>
         </div>
     </div>

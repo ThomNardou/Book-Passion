@@ -60,25 +60,28 @@ async function editBook() {
                 <img :src="oldBook.coverImage" alt="cover image" id="coverImage">
             </div>
             <div id="right">
-                <label>Titre du livre</label>
-                <input type="text" :placeholder="oldBook.title" v-model="newBook.title">
+                <label style="grid-area: 1/1;">Titre du livre</label>
+                <input style="grid-area: 2/1;" type="text" :placeholder="oldBook.title" v-model="newBook.title">
 
-                <label>Catégorie</label>
-                <select required>
+                <label style="grid-area: 1/2;">Catégorie</label>
+                <select required style="grid-area: 2/2;">
                     <option disabled selected>-- Categorie --</option>
                     <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                 </select>
 
-                <label>Résumé</label>
+                <label style="grid-row: 3;">Résumé</label>
+                <input style="grid-row: 4;" type="text" :placeholder="oldBook.summary">
+
+                <label>Extrait</label>
                 <input type="text" :placeholder="oldBook.excerpt">
 
-                <label>Auteur</label>
-                <input type="text" :placeholder="oldBook.writer">
+                <label style="grid-area: 4/1;">Auteur</label>
+                <input style="grid-area: 5/1;" type="text" :placeholder="oldBook.writer">
 
-                <label>Éditeur</label>
-                <input type="text" :placeholder="oldBook.editor">
+                <label style="grid-area: 4/2;">Éditeur</label>
+                <input style="grid-area: 5/2;" type="text" :placeholder="oldBook.editor">
 
-                <label>Image de couverture</label>
+                <label >Image de couverture</label>
                 <input type="text" :placeholder="oldBook.coverImage">
 
                 <label>Année d'édition</label>
@@ -95,7 +98,7 @@ async function editBook() {
 <style scoped>
 #right {
     display: grid;
-    grid-template: 1fr 1fr / repeat(12, 1fr);
+    grid-template: repeat(12, 1fr) / 1fr 1fr;
 }
 
 #coverImage {
@@ -104,6 +107,7 @@ async function editBook() {
 
 form {
     background-color: #FFFFFF41;
+    display: flex;
 }
 
 #container {
@@ -113,7 +117,7 @@ form {
 }
 
 p,
-h1 {
+h1, label {
     color: white;
 }
 
