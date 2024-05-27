@@ -14,6 +14,7 @@ import { putCategoryRooter } from "./routes/category/updateCategory.mjs";
 import { idCategoryRooter } from "./routes/category/findCategoryById.mjs";
 import { createCommentRooter } from "./routes/comments/createComment.mjs";
 import { allCommentsRouters } from "./routes/comments/findBookComments.mjs";
+import { userBooksRooter } from "./routes/books/findBookByUser.mjs";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { loginRouter } from "./routes/login.mjs";
 import { SwaggerTheme } from "swagger-themes";
@@ -62,6 +63,9 @@ app.use("/api/books", idBooksRooter);
 
 //define the root to get book by category
 app.use("/api/categories", categoryBooksRooter);
+
+//define the root to get book by user
+app.use("/api/user", userBooksRooter);
 
 //define the root to update book
 app.use("/api/books", putBooksRooter);
