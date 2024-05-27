@@ -4,6 +4,7 @@ import OneBookView from "@/views/oneBookView.vue";
 import LoginView from "@/views/LoginView.vue";
 import AllBooksView from "@/views/AllBooksView.vue";
 import AddBookView from "@/views/addBookView.vue";
+import userPage from "@/views/userPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: "/addBook",
       name: "addBook",
       component: AddBookView
+    },
+    {
+      path: "/userPage",
+      name: "userPage",
+      component: userPage
     }
   ],
 });
