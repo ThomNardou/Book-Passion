@@ -19,17 +19,17 @@ onMounted(() => {
 
 async function editBook() {
             await axios.post('http://localhost:3000/api/books', {
-                title: this.newBook.title,
-                numberPages: this.newBook.nbrPage,
-                excerpt: this.newBook.extrait,
-                summary: this.newBook.resume,
-                writer: this.newBook.author,
-                editor: this.newBook.editor,
-                releaseYear: this.newBook.releasedYear,
+                title: this.book.title,
+                numberPages: this.book.nbrPage,
+                excerpt: this.book.extrait,
+                summary: this.book.resume,
+                writer: this.book.author,
+                editor: this.book.editor,
+                releaseYear: this.book.releasedYear,
                 avgRating: 0,
-                coverImage: this.newBook.coverImage,
+                coverImage: this.book.coverImage,
                 fk_user: decodeToken(localStorage.token).userId,
-                fk_category: this.newBook.category
+                fk_category: this.book.category
             },
                 {
                     headers: {
