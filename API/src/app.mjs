@@ -104,7 +104,7 @@ sequelize
   .then(() =>
     console.log("The connection to the database has been established.")
   )
-  // If it could'nt connect
+  // If it couldn't connect
   .catch((error) => console.error("Unable to connect to DB"));
 
 // initDB(); //you need to be connected to the database else "error", will delete the data
