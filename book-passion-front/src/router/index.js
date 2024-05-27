@@ -35,9 +35,10 @@ const router = createRouter({
       component: () => import("@/views/userPage.vue"),
     },
     {
-      path: "/updateBook",
+      path: "/updateBook/:bookId",
       name: "updateBook",
       component: () => import("@/views/updateBook.vue"),
+      props: true
     }
   ],
 });

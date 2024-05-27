@@ -49,17 +49,7 @@ export default {
                     <p class="error">{{ errorMessage }}</p>
                 </div>
 
-                <div class="remember-forgot">
-                    <label><input type="checkbox"> Remember me</label>
-                    <RouterLink class="link" to="/forgotPassword" id="forgot">Forgot Password ?</RouterLink>
-                </div>
-
                 <button type="submit" class="btn">Login</button>
-
-                <div class="register-link">
-                    <p>Don't have an account? <RouterLink class="link" to="/signup">Create One</RouterLink>
-                    </p>
-                </div>
             </form>
         </div>
     </div>
