@@ -18,9 +18,7 @@ import { defineProps } from 'vue';
                 <p><span class="data">Auteur : </span>{{ resultAPI.writer }}</p>
                 <p><span class="data">Éditeur : </span>{{ resultAPI.editor }}</p>
                 <p><span class="data">Année d'édition : </span>{{ resultAPI.releaseYear }}</p>
-                <p><span :class="index <= resultAPI.avgRating ? 'colorYellow' : ''" v-for="index in 5" :key="index">
-                        <AnFilledStar />
-                    </span></p>
+                <p><span class="data">Note moyenne : </span>{{ resultAPI.avgRating }}</p>
             </div>
         </div>
         <br><br><br>
@@ -42,9 +40,7 @@ import { defineProps } from 'vue';
                 <div class="userPart">
                     <p class="comment_name">{{ comment.t_user.username }}</p>
                     <p class="comment_note">
-                        <span :class="index <= comment.rate ? 'colorYellow' : ''" v-for="index in 5" :key="index">
-                            <AnFilledStar />
-                        </span>
+                        Note : {{ comment.rate }}
                     </p>
                 </div>
 
@@ -130,9 +126,11 @@ const updateRate = (rate) => {
     totalRate += rate;
     countRate += 1;
 
+    alert(totalRate / countRate)
+
     axios
         .put(`http://localhost:3000/api/books/${props.id}`, {
-            avgRating: Math.ceil(totalRate / countRate)
+            avgRating: Math.round(totalRate / countRate * 10) / 10
         }, {
             headers: {
                 Authorization:
@@ -271,6 +269,8 @@ hr {
     position: sticky;
     bottom: 0;
     left: 25%;
+    display: flex;
+    justify-content: center;
 }
 
 .noComments,

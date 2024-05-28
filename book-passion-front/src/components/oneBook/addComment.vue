@@ -5,43 +5,43 @@ import axios from "axios";
 let overStarSelected = 0;
 let starSelected = 0;
 import { decodeToken } from "@/utils/decodeTokenTool.mjs";
-import { defineEmits } from "vue";
+import { defineEmits, ref } from "vue";
 
 const props = defineProps(["bookId"])
 const emit = defineEmits(["update-rate"])
 
-function starClicked(index) {
-    starSelected = index;
-}
-function updateSelect(index) {
-    overStarSelected = index;
-    changeStarColor()
-}
-function changeStarColor() {
-    const stars = document.querySelectorAll(".star");
-    stars.forEach((star, index) => {
+let rate = ref(0);
+let commentTitle = ref("");
+let commentContent = ref("");
 
-        if (index < overStarSelected) {
-            star.style.color = "yellow";
-        } else {
-            if (index < starSelected) {
-                star.style.color = "yellow";
-            } else {
-                star.style.color = "";
-            }
-        }
-    });
-}
+// function starClicked(index) {
+//     starSelected = index;
+// }
+// function updateSelect(index) {
+//     overStarSelected = index;
+//     changeStarColor()
+// }
+// function changeStarColor() {
+//     const stars = document.querySelectorAll(".star");
+//     stars.forEach((star, index) => {
+
+//         if (index < overStarSelected) {
+//             star.style.color = "yellow";
+//         } else {
+//             if (index < starSelected) {
+//                 star.style.color = "yellow";
+//             } else {
+//                 star.style.color = "";
+//             }
+//         }
+//     });
+// }
 
 function postComment() {
-    const commentTitle = document.getElementById("commentTitleInput").value;
-    const commentContent = document.getElementById("commentCommentInput").value;
-    const commentRate = starSelected;
 
-
-    if (commentTitle == '') return;
-    if (commentContent == '') return;
-    if (commentRate == 0) return;
+    if (commentTitle.value == '') return;
+    if (commentContent.value == '') return;
+    if (rate.value == 0) return;
 
     const APICall = 'http://localhost:3000/api/comments'
 
@@ -49,9 +49,9 @@ function postComment() {
 
     axios.post(APICall, 
     {
-        title: commentTitle,
-        comment: commentContent,
-        rate: commentRate,
+        title: commentTitle.value,
+        comment: commentContent.value,
+        rate: rate.value,
         fk_user: utilisateurId,
         fk_book: parseInt(props.bookId),
     },
@@ -63,7 +63,7 @@ function postComment() {
 
     })
         .then((result) => {
-            emit('update-rate', commentRate)
+            emit('update-rate', rate.value)
             location.reload()
         })
         .catch((err) => {
@@ -76,17 +76,19 @@ function postComment() {
     <div class="addComment">
         <div class="input">
             <label for="Title" id="commentTitle">Titre du commentaire :</label>
-            <input type="text" id="commentTitleInput">
+            <input type="text" id="commentTitleInput" v-model="commentTitle">
             <p id="commentNote">Note :</p>
             <p id="commentNoteInput">
-                <AnFilledStar class="star" v-for="index in 5" :key="index" @mouseover="updateSelect(index)"
-                    @click="starClicked(index)" />
+                <input type="number" min="1" max="5" value="1" v-model="rate">
             </p>
             <label for="comment" id="commentComment">Commentaire :</label>
-            <input id="commentCommentInput" type="text">
+            <input id="commentCommentInput" type="text" v-model="commentContent">
             <button @click="postComment()">Envoyer</button>
         </div>
     </div>
+    <p>{{ commentTitle }}</p>
+    <p>{{ commentContent }}</p>
+    <p>{{ rate }}</p>
 </template>
 <style scoped>
 .colorYellow {
@@ -172,6 +174,7 @@ label {
     background-color: rgb(128, 201, 156);
     border-radius: 30px 30px 0 0;
     width: 50%;
+    
 }
 
 .input {

@@ -29,12 +29,28 @@ async function getUserBooks() {
 </script>
 <template>
     <div class="container" v-if="!haveError || userBook.length > 0">
+        <router-link to="/addBook" class="addBook">Ajouter un livre</router-link>
         <userBook class="book" v-for="book in usersBook" :book="book"></userBook>
     </div>
 </template>
 <style scoped>
+
+* {
+    font-family: kanit;
+}
+
 p {
     margin-top: 120px;
+}
+
+.addBook {
+    margin-top: 120px;
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
 }
 
 .container {
