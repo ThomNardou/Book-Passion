@@ -18,7 +18,8 @@ export default {
         status: Number
       },
       tokenExist: false,
-      token: ''
+      token: '',
+      thereHaveError: false
     };
   },
   mounted() {
@@ -31,10 +32,17 @@ export default {
       axios
         .get("http://localhost:3000/api/books?order=createdAt")
         .then((result) => {
-          this.lastBooks = result.data.data.rows;
+          console.log(result);
+          
+          if (result.data.data) {
+            this.lastBooks = result.data.data.rows;
+          }
+
+          this.thereHaveError = false;
         })
         .catch((err) => {
           console.log(err);
+          this.thereHaveError = true;
         });
     },
   },
@@ -48,8 +56,15 @@ export default {
 
   <h1 class="lastBooks">5 last <span>Book</span></h1>
 
-  <div v-if="lastBooks.length > 0" class="bookContainer">
+  <div class="error" v-if="thereHaveError == true">
+    <p>Une erreur est survenue lors de la récupération des derniers livres</p>
+  </div>
 
+  <div class="error" v-else-if="lastBooks.length <= 0">
+    <p>Il n'y a pas de livre enregistrer pour l'instant</p>
+  </div>
+  
+  <div v-else class="bookContainer">
     <div v-for="book in lastBooks" :key="book.id">
       <RouterLink v-if="tokenExist"
         :to="{ name: 'book', params: { id: book.id } }" class="routerLink">
@@ -65,14 +80,8 @@ export default {
       </div>
 
     </div>
-
-
   </div>
 
-  <div v-else class="loader">
-    <div class="custom-loader"></div>
-    <p>Chargement en Cours...</p>
-  </div>
 
   <ourTeamComponent />
 
@@ -107,12 +116,13 @@ span {
   text-decoration: none;
 }
 
-.loader {
-  display: grid;
-  justify-content: center;
+.error {
+  
   height: 50vh;
-  text-align: center;
-  margin: 120px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 
 @keyframes s3 {

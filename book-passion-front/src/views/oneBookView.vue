@@ -19,6 +19,7 @@ import { defineProps } from 'vue';
                 <p><span class="data">Éditeur : </span>{{ resultAPI.editor }}</p>
                 <p><span class="data">Année d'édition : </span>{{ resultAPI.releaseYear }}</p>
                 <p><span class="data">Note moyenne : </span>{{ resultAPI.avgRating }}</p>
+                <p><span class="data">Appartient à : </span>{{ resultAPI.t_user.username }}</p>
             </div>
         </div>
         <br><br><br>
@@ -95,6 +96,7 @@ const getBook = async () => {
             },
         })
         .then(async (result) => {
+            console.log(result.data.data);
             resultAPI.value = result.data.data;
         })
         .catch((err) => {
@@ -149,6 +151,7 @@ const updateRate = (rate) => {
 </script>
 
 <style scoped>
+
 * {
     background-color: black;
     font-family: kanit;

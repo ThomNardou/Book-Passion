@@ -61,6 +61,7 @@ let initDB = () => {
 
       // return Book.findOne({ where: { title: "testCreate" } });
       importUsers();
+      importCategories();
 
       console.log("The database has been synchronized.");
     })
@@ -91,8 +92,12 @@ const importBooks = () => {
 };
 
 const importCategories = async () => {
-  await Category.create({
-    name: "coucou",
+  let categories = ["manga", "short_novel", "book", "comic"]
+  
+  categories.forEach(async (element) => {
+    await Category.create({
+      name: element,
+    });
   });
 };
 

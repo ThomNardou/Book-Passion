@@ -27,7 +27,9 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.categories = res.data.data.rows;
+                    if (res.data.data.rows.length > 0) {
+                        this.categories = res.data.data.rows;
+                    }
                     this.haveError = false;
                 })
                 .catch((err) => {
@@ -63,7 +65,7 @@ export default {
 </script>
 <template>
     <div class="container" v-if="!haveError || categories.length > 0">
-        <form> <!--TODO Should i put the form in a global component? not now-->
+        <form @submit.prevent="addBook"> <!--TODO Should i put the form in a global component? not now-->
             <h1>Ajouter un livre</h1>
             <div>
 
@@ -118,7 +120,7 @@ export default {
                     <input type="number" v-model="newBook.nbrPage" name="nbrPage" id="nbrPage" required />
                 </div>
 
-                <button @submit.prevent="addBook">Ajouter</button>
+                <button>Ajouter</button>
             </div>
         </form>
     </div>

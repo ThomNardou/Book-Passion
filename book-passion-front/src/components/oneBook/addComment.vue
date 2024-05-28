@@ -47,21 +47,21 @@ function postComment() {
 
     const utilisateurId = decodeToken(localStorage.token).userId
 
-    axios.post(APICall, 
-    {
-        title: commentTitle.value,
-        comment: commentContent.value,
-        rate: rate.value,
-        fk_user: utilisateurId,
-        fk_book: parseInt(props.bookId),
-    },
-    {
-        headers: {
-            Authorization:
-                "Bearer " + localStorage.token,
-        }
+    axios.post(APICall,
+        {
+            title: commentTitle.value,
+            comment: commentContent.value,
+            rate: rate.value,
+            fk_user: utilisateurId,
+            fk_book: parseInt(props.bookId),
+        },
+        {
+            headers: {
+                Authorization:
+                    "Bearer " + localStorage.token,
+            }
 
-    })
+        })
         .then((result) => {
             emit('update-rate', rate.value)
             location.reload()
@@ -75,20 +75,20 @@ function postComment() {
 <template>
     <div class="addComment">
         <div class="input">
-            <label for="Title" id="commentTitle">Titre du commentaire :</label>
-            <input type="text" id="commentTitleInput" v-model="commentTitle">
-            <p id="commentNote">Note :</p>
-            <p id="commentNoteInput">
-                <input type="number" min="1" max="5" value="1" v-model="rate">
-            </p>
-            <label for="comment" id="commentComment">Commentaire :</label>
-            <input id="commentCommentInput" type="text" v-model="commentContent">
-            <button @click="postComment()">Envoyer</button>
+            <form @submit.prevent="postComment()">
+                <label for="Title" id="commentTitle">Titre du commentaire :</label>
+                <input type="text" id="commentTitleInput" v-model="commentTitle">
+
+                <label id="commentNote">Note :</label>
+                <input type="number" min="0" max="5" value="1" v-model="rate">
+
+                <label for="comment" id="commentComment">Commentaire :</label>
+                <input id="commentCommentInput" type="text" v-model="commentContent">
+
+                <button>Envoyer</button>
+            </form>
         </div>
     </div>
-    <p>{{ commentTitle }}</p>
-    <p>{{ commentContent }}</p>
-    <p>{{ rate }}</p>
 </template>
 <style scoped>
 .colorYellow {
@@ -105,15 +105,15 @@ button {
     margin-left: 25%;
 }
 
-.input>input {
+.input > input {
     display: flex;
     justify-content: center;
 }
 
-.input>p,
-.input>input,
-.input>button,
-.input>label {
+.input >p,
+.input >input,
+.input >button,
+.input >label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -174,12 +174,16 @@ label {
     background-color: rgb(128, 201, 156);
     border-radius: 30px 30px 0 0;
     width: 50%;
-    
+
+}
+
+.input form {
+    display: grid;
+    grid-template: repeat(4, 1fr) 25px / 50% 50%;
 }
 
 .input {
-    display: grid;
-    grid-template: repeat(4, 1fr) 25px / 50% 50%;
+    width: 90%;
 }
 
 /*Snippet*/

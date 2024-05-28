@@ -111,7 +111,7 @@ sequelize
   // If it couldn't connect
   .catch((error) => console.error("Unable to connect to DB"));
 
-// initDB(); //you need to be connected to the database else "error", will delete the data
+initDB(); //you need to be connected to the database else "error", will delete the data
 
 //Error 404 if the URL don't exist
 app.use(({ res }) => {

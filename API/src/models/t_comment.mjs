@@ -32,6 +32,15 @@ const commentModel = (sequelize, DataTypes) => {
     rate: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      validate: {
+        isInt: {
+          msg: "The rate must be an integer.",
+        },
+        max: {
+          args: 5,
+          msg: "The rate must be less than 5.",
+        },
+      },
     },
     fk_user: {
       type: DataTypes.INTEGER,
