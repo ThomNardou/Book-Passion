@@ -58,6 +58,11 @@ export default {
                 })
                 .then((res) => {
                     console.log(res)
+                    alert("Le livre a bien été ajouté");
+                    location.href = '/userPage'
+                })
+                .catch((err) => {
+                    console.log(err)
                 })
         }
     }
@@ -111,13 +116,13 @@ export default {
 
                 <div class="releasedYear">
                     <label for="releasedYear">Année d'édition<span class="star">*</span></label>
-                    <input type="number" v-model="newBook.releasedYear" name="releasedYear" id="releasedYear"
+                    <input type="number" v-model="newBook.releasedYear" name="releasedYear" id="releasedYear" min="1"
                         required />
                 </div>
 
                 <div class="nbrPage">
                     <label for="nbrPage">Nombre de pages<span class="star">*</span></label>
-                    <input type="number" v-model="newBook.nbrPage" name="nbrPage" id="nbrPage" required />
+                    <input type="number" v-model="newBook.nbrPage" name="nbrPage" id="nbrPage" required min="1"/>
                 </div>
 
                 <button>Ajouter</button>

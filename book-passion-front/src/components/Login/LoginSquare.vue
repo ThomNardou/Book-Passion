@@ -25,6 +25,11 @@ export default {
                 .then((res) => {
                     localStorage.token = res.data.token
                     location.href = '/'
+                })
+                .catch((err) => {
+                    if (err.response.status == 404) {
+                        this.errorMessage = 'Username or password is incorrect'
+                    }
                 });
         }
     }

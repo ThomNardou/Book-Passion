@@ -48,6 +48,9 @@ export default {
     <div v-if="categories.length > 0" v-for="category in categories" :key="category.categoryId">
       <booksCategoryCompent :Books="category" class="container"/>
     </div>
+    <div v-else class="error">
+      <p>Il n'y pas de livre enregistrer</p>
+    </div>
 
   </div>
 </template>
@@ -59,5 +62,15 @@ export default {
 
 .container {
   margin: 30px 0;
+}
+
+.error {
+  height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: kanit;
+  font-size: 30px;
 }
 </style>

@@ -19,8 +19,12 @@ onMounted(() => {
 async function getUserBooks() {
     axios.get(`http://localhost:3000/api/user/${decodeToken(localStorage.token).userId}/books`)
     .then((res) => {
-        usersBook.value = res.data.data.rows;
-        console.log(usersBook.value)
+        console.log(res)
+
+        if (res.data.data) {
+            usersBook.value = res.data.data.rows;
+        }
+        console.log(usersBook.value.length)
     })
     .catch((err) => {
         console.log(err)
@@ -28,7 +32,15 @@ async function getUserBooks() {
 }
 </script>
 <template>
-    <div class="container" v-if="!haveError || userBook.length > 0">
+    <div v-if="haveError" class="container">
+        <router-link to="/addBook" class="addBook">Ajouter un livre</router-link>
+        <p>Une erreur est survenue lors de la récupération de vos livres</p>
+    </div>
+    <div v-else-if="usersBook.length <= 0" class="container">
+        <router-link to="/addBook" class="addBook">Ajouter un livre</router-link>
+        <p>Vous n'avez pas encore enregistré de livre</p>
+    </div>
+    <div v-else class="container" >
         <router-link to="/addBook" class="addBook">Ajouter un livre</router-link>
         <userBook class="book" v-for="book in usersBook" :book="book"></userBook>
     </div>
@@ -44,9 +56,8 @@ p {
 }
 
 .addBook {
-    margin-top: 120px;
-    margin-left: 20px;
     padding: 10px;
+    margin: 50px;
     background-color: #f1f1f1;
     border-radius: 5px;
     text-decoration: none;
@@ -58,6 +69,13 @@ p {
     background-attachment: fixed;
     background-size: cover;
     padding-top: 200px;
+    min-height: calc(100vh - 120px);
+}
+
+.container p {
+    color: white;
+    font-size: 30px;
+    text-align: center;
 }
 
 .book {

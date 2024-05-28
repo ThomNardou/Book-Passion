@@ -128,8 +128,6 @@ const updateRate = (rate) => {
     totalRate += rate;
     countRate += 1;
 
-    alert(totalRate / countRate)
-
     axios
         .put(`http://localhost:3000/api/books/${props.id}`, {
             avgRating: Math.round(totalRate / countRate * 10) / 10
