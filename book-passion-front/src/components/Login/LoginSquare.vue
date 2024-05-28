@@ -28,7 +28,7 @@ export default {
                 })
                 .catch((err) => {
                     if (err.response.status == 404) {
-                        this.errorMessage = 'Username or password is incorrect'
+                        this.errorMessage = 'Username or password incorrect'
                     }
                 });
         }

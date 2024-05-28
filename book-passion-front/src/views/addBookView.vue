@@ -70,7 +70,7 @@ export default {
 </script>
 <template>
     <div class="container" v-if="!haveError || categories.length > 0">
-        <form @submit.prevent="addBook"> <!--TODO Should i put the form in a global component? not now-->
+        <form @submit.prevent="addBook">
             <h1>Ajouter un livre</h1>
             <div>
 

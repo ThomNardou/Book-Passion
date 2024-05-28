@@ -3,7 +3,7 @@
         <h1>Our <span>Team</span></h1>
         <div class="member">
             <img src="https://avatars.githubusercontent.com/u/122774874?v=4" />
-            <p>Thomas Nardou - PDG</p>
+            <p>Thomas Nardou - Développeur</p>
         </div>
         <div class="member">
             <img src="https://avatars.githubusercontent.com/u/122774888?v=4" />
@@ -11,9 +11,6 @@
         </div>
     </div>
 </template>
-
-<script>
-</script>
 
 <style scoped>
 * {

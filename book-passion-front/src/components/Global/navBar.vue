@@ -3,7 +3,7 @@
       <div class="nav-wrapper">
         <RouterLink to="/" class="brand-logo"><img src="/pile-de-livres.webp" /></RouterLink>
         <!-- <a href="#" class="brand-logo"><img src="/LolPictures/masterLol.webp" /></a> -->
-        <label class="hamberger-logo" for="checked">≡</label>
+        <p class="hamburger-logo" for="checked">≡</p>
         <input type="checkbox" name="checked" id="checked" />
         <ul id="nav-mobile" class="option">
           <li>
@@ -18,7 +18,7 @@
           <li>
             <a href="#" class="login">
               <RouterLink to="/login" id="router-link">
-                <label>Login</label>
+                <p>Login</p>
                 <CaUserAvatarFilledAlt class="icon" />
               </RouterLink>
             </a>
@@ -62,7 +62,7 @@
     /* background-color: #8d86c9; */
   }
   
-  .hamberger-logo {
+  .hamburger-logo {
     font-size: 50px;
     display: none;
   }
@@ -112,7 +112,7 @@
     margin: 0 3rem;
   }
   
-  .login label {
+  .login p {
     font-size: 20px;
     display: none;
   }
@@ -122,7 +122,7 @@
   }
   
   @media (max-width: 768px) {
-    .hamberger-logo {
+    .hamburger-logo {
       display: block;
       -moz-user-select: none;
       -webkit-user-select: none;
@@ -142,7 +142,7 @@
       background-color: black;
     }
   
-    .login label {
+    .login p {
       font-size: 0;
     }
   
@@ -155,7 +155,7 @@
     }
   
     #checked:checked + .option,
-    #checked:checked + .option .login label {
+    #checked:checked + .option .login p {
       /* display: flex; */
       font-size: 20px;
       height: calc(100vh - 100px);
@@ -180,7 +180,7 @@
       display: flex;
     }
   
-    .login label {
+    .login p {
       display: block;
     }
   

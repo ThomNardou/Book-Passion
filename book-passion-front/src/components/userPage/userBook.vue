@@ -19,7 +19,7 @@ async function deleteBook(bookId) {
         }
     })
     .then((res) => {
-        alert("Vous avez bien supprimer le livre !!")
+        alert("Vous avez bien supprimé le livre !!")
         haveError.value = false;
         location.reload();
     })

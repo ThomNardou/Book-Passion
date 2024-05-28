@@ -1,6 +1,6 @@
 <script setup>
 import LobbyHeader from "@/components/Lobby/LobbyHeader.vue";
-import bookComponent from "@/components/Lobby/bookCompent.vue";
+import bookComponent from "@/components/Lobby/bookComponent.vue";
 import webSiteDescription from '@/components/Lobby/webSiteDescription.vue';
 import ourTeamComponent from '@/components/Lobby/ourTeamComponent.vue';
 import { RouterLink } from "vue-router";
@@ -61,7 +61,7 @@ export default {
   </div>
 
   <div class="error" v-else-if="lastBooks.length <= 0">
-    <p>Il n'y a pas de livre enregistrer pour l'instant</p>
+    <p>Il n'y a pas de livre enregistré pour l'instant</p>
   </div>
   
   <div v-else class="bookContainer">

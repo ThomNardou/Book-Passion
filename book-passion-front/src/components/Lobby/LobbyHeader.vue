@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="image">
-      <img src="/pile-de-livres.webp" alt="" />
+      <img src="/pile-de-livres.webp" alt="image de livre" />
     </div>
   </header>
 </template>

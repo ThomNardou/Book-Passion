@@ -32,24 +32,10 @@ async function getOldValues() {
         })
 }
 
-async function getCategories() {
-    await axios.get('http://localhost:3000/api/categories')
-        .then((res) => {
-            categories.value = res.data.data.rows;
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-}
-
 async function editBook() {
-
-
-
     await axios.put(`http://localhost:3000/api/books/${props.bookId}`, {
         headers: { Authorization: 'Bearer ' + localStorage.token },
     })
-
 }
 </script>
 <template>

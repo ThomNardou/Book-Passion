@@ -1,5 +1,5 @@
 <script setup>
-import bookCompent from '../Lobby/bookCompent.vue';
+import bookComponent from '../Lobby/bookComponent.vue';
 </script>
 
 <script>
@@ -29,24 +29,15 @@ export default {
     <div class="categoryContainer">
         <h1>{{ Books.categoryName }}</h1>
         <div class="bookContainer">
-
-
-
-
             <div v-if="!tokenExist" v-for="book in Books.books" :key="book.id">
-
-                <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
+                <bookComponent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
                     :imageSrc="book.coverImage" :createdAt="book.createdAt" />
             </div>
 
-            <RouterLink v-else v-for="book in Books.books" :to="{ name: 'book', params: { id: book.id } }"
-                class="routerLink">
-
-                <bookCompent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
+            <RouterLink v-else v-for="book in Books.books" :to="{ name: 'book', params: { id: book.id } }" class="routerLink">
+                <bookComponent :userName="book.t_user.username" :authorname="book.writer" :title="book.title"
                     :imageSrc="book.coverImage" :createdAt="book.createdAt" />
-
             </RouterLink>
-
         </div>
     </div>
 </template>

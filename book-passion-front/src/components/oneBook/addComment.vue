@@ -1,9 +1,5 @@
 <script setup>
-import { AnFilledStar } from "@kalimahapps/vue-icons";
-import { onMounted } from "vue";
 import axios from "axios";
-let overStarSelected = 0;
-let starSelected = 0;
 import { decodeToken } from "@/utils/decodeTokenTool.mjs";
 import { defineEmits, ref } from "vue";
 
@@ -13,29 +9,6 @@ const emit = defineEmits(["update-rate"])
 let rate = ref(0);
 let commentTitle = ref("");
 let commentContent = ref("");
-
-// function starClicked(index) {
-//     starSelected = index;
-// }
-// function updateSelect(index) {
-//     overStarSelected = index;
-//     changeStarColor()
-// }
-// function changeStarColor() {
-//     const stars = document.querySelectorAll(".star");
-//     stars.forEach((star, index) => {
-
-//         if (index < overStarSelected) {
-//             star.style.color = "yellow";
-//         } else {
-//             if (index < starSelected) {
-//                 star.style.color = "yellow";
-//             } else {
-//                 star.style.color = "";
-//             }
-//         }
-//     });
-// }
 
 function postComment() {
 

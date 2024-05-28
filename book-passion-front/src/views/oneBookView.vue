@@ -1,11 +1,7 @@
 <script>
 import addComment from '@/components/oneBook/addComment.vue';
-import { AnFilledStar } from "@kalimahapps/vue-icons";
 import { onMounted } from 'vue';
 import { defineProps } from 'vue';
-
-
-
 </script>
 <template>
     <div v-if="Object.keys(resultAPI).length > 0">
@@ -19,7 +15,7 @@ import { defineProps } from 'vue';
                 <p><span class="data">Éditeur : </span>{{ resultAPI.editor }}</p>
                 <p><span class="data">Année d'édition : </span>{{ resultAPI.releaseYear }}</p>
                 <p><span class="data">Note moyenne : </span>{{ resultAPI.avgRating }}</p>
-                <p><span class="data">Appartient à : </span>{{ resultAPI.t_user.username }}</p>
+                <p><span class="data">Posté par : </span>{{ resultAPI.t_user.username }}</p>
             </div>
         </div>
         <br><br><br>
@@ -29,7 +25,7 @@ import { defineProps } from 'vue';
         <h2 class="part-heading" id="part-heading-comment">Commentaires</h2>
 
         <div v-if="hasCommentError" class="error">
-            <p>Une erreur c'est produit lors de la récupération de commentaire merci de réessayer plus tard</p>
+            <p>Une erreur est survenue lors de la récupération des commentaire, merci de réessayer plus tard</p>
         </div>
 
         <div v-else-if="commentsList.length <= 0" class="noComments">
@@ -66,8 +62,6 @@ import { defineProps } from 'vue';
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-
-let comments = [{ id: 1, name: "Kyle", title: "Cool", note: 4, comment: "shfbwbfebafbeafbheafha" }, { id: 2, name: "Khaille", title: "Colo", note: 4, comment: "shfbwbfebafbeafbheafha" }]
 
 let resultAPI = ref({});
 let commentsList = ref([])
