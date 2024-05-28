@@ -27,7 +27,7 @@ export default {
                     location.href = '/'
                 })
                 .catch((err) => {
-                    if (err.response.status == 404) {
+                    if (err.response.status == 404 || err.response.status == 401) {
                         this.errorMessage = 'Username or password incorrect'
                     }
                 });

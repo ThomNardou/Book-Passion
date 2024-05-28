@@ -32,7 +32,6 @@ export default {
       axios
         .get("http://localhost:3000/api/books?order=createdAt")
         .then((result) => {
-          console.log(result);
           
           if (result.data.data) {
             this.lastBooks = result.data.data.rows;

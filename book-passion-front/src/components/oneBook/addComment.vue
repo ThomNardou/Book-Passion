@@ -53,7 +53,7 @@ function postComment() {
                 <input type="text" id="commentTitleInput" v-model="commentTitle">
 
                 <label id="commentNote">Note :</label>
-                <input type="number" min="0" max="5" value="1" v-model="rate">
+                <input type="number" min="1" max="5" value="1" v-model="rate">
 
                 <label for="comment" id="commentComment">Commentaire :</label>
                 <input id="commentCommentInput" type="text" v-model="commentContent">

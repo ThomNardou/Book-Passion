@@ -18,7 +18,7 @@ const commentModel = (sequelize, DataTypes) => {
       }
     },
     comment: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT('long'),
       allowNull: false,
       validate: {
         notEmpty: {
