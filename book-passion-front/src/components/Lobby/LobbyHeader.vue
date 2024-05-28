@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="image">
-      <img src="/pile-de-livres.png" alt="" />
+      <img src="/pile-de-livres.webp" alt="" />
     </div>
   </header>
 </template>
@@ -18,7 +18,7 @@ export default {};
 header {
   height: 100vh;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("/bookWallPaper.jpeg");
+    url("/bookWallPaper.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

@@ -59,7 +59,7 @@ export default {
 .global {
     width: 100%;
     height: 100vh;
-    background: url('bookWallPaper.jpeg') no-repeat;
+    background: url('bookWallPaper.webp') no-repeat;
     background-position: center;
     background-size: cover;
     font-family: kanit;

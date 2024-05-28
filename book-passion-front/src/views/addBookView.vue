@@ -130,7 +130,7 @@ export default {
 }
 
 .container {
-    background-image: url("/addBookWallPaper.jpeg");
+    background-image: url("/addBookWallPaper.webp");
     background-size: cover;
     height: calc(100vh - 120px);
     position: fixed;
